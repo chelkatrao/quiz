@@ -18,6 +18,12 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/list-full")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_READ')")
+    public List<UserDto> getUserListFull() {
+        return userService.getUserListFull();
+    }
+
     @GetMapping("/list")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_READ')")
     public List<UserDto> getUserList() {
@@ -25,9 +31,21 @@ public class UserController {
     }
 
     @PostMapping("/new")
-    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_READ')")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_WRITE')")
     public UserCreateDto createUser(@RequestBody UserCreateDto userCreateDto) {
         return userService.createUser(userCreateDto);
+    }
+
+    @GetMapping("/remove/{id}")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_WRITE')")
+    public Boolean removeUser(@PathVariable("id") Long id) throws Exception {
+        return userService.removeUserById(id);
+    }
+
+    @PutMapping("/edit/{id}")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_WRITE')")
+    public UserCreateDto updateUser(@RequestBody UserCreateDto userUpdateDto, @PathVariable("id") Long id) throws Throwable {
+        return userService.updateUser(userUpdateDto,id);
     }
 
 }

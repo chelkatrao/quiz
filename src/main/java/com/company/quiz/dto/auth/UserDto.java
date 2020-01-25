@@ -12,15 +12,16 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 public class UserDto {
-
+    private Long id;
     private String username;
     private Set<RoleDto> roles;
 
     @Builder(builderMethodName = "builder")
-    public UserDto(String username,
+    public UserDto(Long id,
+                   String username,
                    Set<RoleDto> roles) {
+        this.id = id;
         this.username = username;
         this.roles = roles;
     }
-
 }

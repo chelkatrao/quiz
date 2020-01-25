@@ -10,7 +10,7 @@ public class QuizApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(QuizApplication.class, args);
-//      applicationContext.getBean(AuthorityService.class).basedAuthorizations();
+//        applicationContext.getBean(AuthorityService.class).basedAuthorizations();
 //      TODO:comment basedAuthorizations method t'o'g'ri ishlagandan keyin olib tashlanishi kerak
     }
 

@@ -10,14 +10,17 @@ import java.util.Set;
 @NoArgsConstructor
 public class RoleDto {
 
+    private Long id;
     private String roleInfo;
     private String roleName;
     private Set<PermissionDto> permission;
 
     @Builder(buildMethodName = "builder")
-    public RoleDto(String roleInfo,
+    public RoleDto(Long id,
+                   String roleInfo,
                    String roleName,
                    Set<PermissionDto> permission) {
+        this.id = id;
         this.roleInfo = roleInfo;
         this.roleName = roleName;
         this.permission = permission;

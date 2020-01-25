@@ -25,9 +25,9 @@ public class AuthorityService {
         for (UserPermissionEnum permisison : permissionEnums) {
             Permission newPermission = new Permission();
             newPermission.setPermissionName(permisison.name());
-            newPermission.setPermissionInfo(permisison.name()
-                    .replace("_", " ")
-                    .replace(":", " ") + " info"
+            newPermission.setPermissionInfo(permisison.name().toLowerCase()
+                    .replace("_", " ").toLowerCase()
+                    .replace(":", " ").toLowerCase() + " info"
                     .toLowerCase());
             newPermission.setCreateBy("Admin");
             permissionRepository.save(newPermission);

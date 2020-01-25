@@ -26,7 +26,7 @@ public class PermissionService {
         List<PermissionDto> permissionDtoList = listPermission.stream()
                 .map(x -> PermissionDto.builder()
                         .permissionName(x.getPermissionName())
-                        .permissionInfo(x.getPermissionInfo()).build())
+                        .permissionInfo(x.getPermissionInfo()).builder())
                 .collect(Collectors.toList());
         return permissionDtoList;
     }

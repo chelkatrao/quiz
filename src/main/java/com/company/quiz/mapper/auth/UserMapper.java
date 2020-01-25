@@ -4,6 +4,7 @@ import com.company.quiz.dto.auth.UserCreateDto;
 import com.company.quiz.model.auth.Role;
 import com.company.quiz.model.auth.User;
 import com.company.quiz.repository.auth.RoleRepository;
+import com.company.quiz.service.UserSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -17,16 +18,25 @@ public class UserMapper {
 
     private RoleRepository roleRepository;
 
-    public UserMapper(PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+    private UserSession userSession;
+
+    public UserMapper(PasswordEncoder passwordEncoder,
+                      RoleRepository roleRepository,
+                      UserSession userSession) {
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+        this.userSession = userSession;
     }
 
     public User toUser(UserCreateDto userCreateDto) {
-        User user = new User();
-        user.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
+        return toUser(userCreateDto);
+    }
+
+    public User toUser(UserCreateDto userCreateDto, User user) {
+        if (userCreateDto.getPassword() != null)
+            user.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
         user.setUsername(userCreateDto.getUsername());
-        user.setCreateBy("super admin"); //TODO: current userni nameni olib createBy ga set qilishim kerak
+        user.setCreateBy(userSession.getUser().getUsername());
         if (userCreateDto.getRoleIds() != null) {
             Set<Role> roles = new HashSet<>();
             for (Long roleId : userCreateDto.getRoleIds()) {
