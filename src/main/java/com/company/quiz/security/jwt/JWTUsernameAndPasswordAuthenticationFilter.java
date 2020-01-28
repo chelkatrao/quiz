@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class JWTUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -66,9 +69,12 @@ public class JWTUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .signWith(secretKey)
                 .compact();
 
-        response.setHeader("Authorization", "Bearer " + toke);
-        //TODO: shu joyni test qilib yaxshilab tekshir
-        response.getWriter().write(gson.toJson(authResult.getAuthorities()));
+        Map responseDate = new TreeMap();
+
+        responseDate.put("token", "Bearer " + toke);
+        responseDate.put("permissions", authResult.getAuthorities());
+
+        response.getWriter().write(gson.toJson(responseDate));
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
