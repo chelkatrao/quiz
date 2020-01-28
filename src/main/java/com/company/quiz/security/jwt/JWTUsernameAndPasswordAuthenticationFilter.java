@@ -20,7 +20,6 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 public class JWTUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -73,6 +72,7 @@ public class JWTUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
         responseDate.put("token", "Bearer " + toke);
         responseDate.put("permissions", authResult.getAuthorities());
+        responseDate.put("username", authResult.getName());
 
         response.getWriter().write(gson.toJson(responseDate));
         response.setStatus(HttpServletResponse.SC_OK);
