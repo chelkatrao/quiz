@@ -65,7 +65,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 "Origin",
                 "Cache-Control",
                 "Content-Type",
-                "Authorization"));
+                "Authorization")
+        );
 
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
