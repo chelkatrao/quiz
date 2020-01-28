@@ -36,7 +36,6 @@ public class JWTUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
             UsernameAndPasswordAuthenticationRequest authenticationRequest = new ObjectMapper()
                     .readValue(request.getInputStream(), UsernameAndPasswordAuthenticationRequest.class);
-
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     authenticationRequest.getPassword(), // principal = username
                     authenticationRequest.getUsername() // credential = password

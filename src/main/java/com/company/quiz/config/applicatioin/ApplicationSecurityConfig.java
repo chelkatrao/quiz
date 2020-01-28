@@ -1,6 +1,7 @@
 package com.company.quiz.config.applicatioin;
 
 import com.company.quiz.security.jwt.JWTTokenVerifier;
+//import com.company.quiz.security.jwt.JWTUsernameAndPasswordAuthenticationFilter;
 import com.company.quiz.security.jwt.JWTUsernameAndPasswordAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +29,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     private final ApplicationUserService applicationUserService;
 
     @Autowired
-    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder, ApplicationUserService applicationUserService) {
+    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder,
+                                     ApplicationUserService applicationUserService) {
         this.passwordEncoder = passwordEncoder;
         this.applicationUserService = applicationUserService;
     }
@@ -41,7 +43,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(new JWTUsernameAndPasswordAuthenticationFilter(authenticationManager()))
+                .addFilter(getJWTAuthenticationFilter())
                 .addFilterAfter(new JWTTokenVerifier(), JWTUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .anyRequest()
@@ -52,7 +54,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
         configuration.setAllowedHeaders(Arrays.asList("content-type"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -61,7 +63,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(daoAuthenticationProvider());
     }
 
@@ -71,6 +73,12 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setPasswordEncoder(passwordEncoder);
         provider.setUserDetailsService(applicationUserService);
         return provider;
+    }
+
+    public JWTUsernameAndPasswordAuthenticationFilter getJWTAuthenticationFilter() throws Exception {
+        final JWTUsernameAndPasswordAuthenticationFilter filter = new JWTUsernameAndPasswordAuthenticationFilter(authenticationManager());
+        filter.setFilterProcessesUrl("/auth/authentication");
+        return filter;
     }
 
 }
