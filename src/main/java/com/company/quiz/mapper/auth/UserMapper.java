@@ -1,6 +1,8 @@
 package com.company.quiz.mapper.auth;
 
+import com.company.quiz.dto.auth.RoleDto;
 import com.company.quiz.dto.auth.UserCreateDto;
+import com.company.quiz.dto.auth.UserDto;
 import com.company.quiz.model.auth.Role;
 import com.company.quiz.model.auth.User;
 import com.company.quiz.repository.auth.RoleRepository;
@@ -9,7 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class UserMapper {
@@ -29,7 +33,7 @@ public class UserMapper {
     }
 
     public User toUser(UserCreateDto userCreateDto) {
-        return toUser(userCreateDto);
+        return toUser(userCreateDto, new User());
     }
 
     public User toUser(UserCreateDto userCreateDto, User user) {
@@ -52,6 +56,7 @@ public class UserMapper {
 
     public UserCreateDto toCreateDto(User user) {
         UserCreateDto dto = new UserCreateDto();
+        dto.setId(user.getId());
         dto.setUsername(user.getUsername());
         dto.setPassword(user.getPassword());
 
@@ -64,4 +69,21 @@ public class UserMapper {
         return dto;
     }
 
+    public List<UserDto> listUserToListUserDto(List<User> list) {
+        List<UserDto> userListDto = list.stream()
+                .map(user ->
+                        UserDto.builder()
+                                .id(user.getId())
+                                .username(user.getUsername())
+                                .roles(user.getRoles().stream()
+                                        .map(role -> RoleDto.builder()
+                                                .id(role.getId())
+                                                .roleName(role.getRoleName())
+                                                .roleInfo(role.getRoleInfo())
+                                                .builder()
+                                        ).collect(Collectors.toSet())
+                                ).build())
+                .collect(Collectors.toList());
+        return userListDto;
+    }
 }

@@ -53,6 +53,14 @@ public class UserService {
         this.userSession = userSession;
     }
 
+    @CacheEvict
+    @Transactional
+    public UserCreateDto createUser(UserCreateDto userCreateDto) {
+        User user = userMapper.toUser(userCreateDto);
+        user = userRepository.save(user);
+        return userMapper.toCreateDto(user);
+    }
+
     @Cacheable(key = "#root.methodName + '/' + #username")
     public UserDetailDto getUserByUsername(String username) {
 
@@ -95,32 +103,10 @@ public class UserService {
         return userDtoList;
     }
 
-    @CacheEvict
-    @Transactional
-    public UserCreateDto createUser(UserCreateDto userCreateDto) {
-        User user = userMapper.toUser(userCreateDto);
-        user = userRepository.save(user);
-        return userMapper.toCreateDto(user);
-    }
-
     @Cacheable(key = "#root.methodName")
     public List<UserDto> getUserList() {
         List<User> list = userRepository.findAll();
-        List<UserDto> userListDto = list.stream()
-                .map(user ->
-                        UserDto.builder()
-                                .id(user.getId())
-                                .username(user.getUsername())
-                                .roles(user.getRoles().stream()
-                                        .map(role -> RoleDto.builder()
-                                                .id(role.getId())
-                                                .roleName(role.getRoleName())
-                                                .roleInfo(role.getRoleInfo())
-                                                .builder()
-                                        ).collect(Collectors.toSet())
-                                ).build())
-                .collect(Collectors.toList());
-        return userListDto;
+        return userMapper.listUserToListUserDto(list);
     }
 
     @CacheEvict
@@ -135,6 +121,7 @@ public class UserService {
         }
     }
 
+    @CacheEvict
     public UserCreateDto updateUser(UserCreateDto userUpdateDto, Long id) throws Exception {
         try {
             User user = userMapper.toUser(userUpdateDto, userRepository.findById(id).get());

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/auth/user")
+@RequestMapping("auth/user")
 public class UserController {
 
     private UserService userService;
@@ -44,8 +44,8 @@ public class UserController {
 
     @PutMapping("/edit/{id}")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_WRITE')")
-    public UserCreateDto updateUser(@RequestBody UserCreateDto userUpdateDto, @PathVariable("id") Long id) throws Throwable {
+    public UserCreateDto updateUser(@RequestBody UserCreateDto userUpdateDto,
+                                    @PathVariable("id") Long id) throws Throwable {
         return userService.updateUser(userUpdateDto,id);
     }
-
 }

@@ -1,13 +1,16 @@
 package com.company.quiz.service.auth;
 
 import com.company.quiz.dto.auth.PermissionDto;
+import com.company.quiz.mapper.auth.PermissionMapper;
 import com.company.quiz.model.auth.Permission;
 import com.company.quiz.repository.auth.PermissionRepository;
+import com.company.quiz.repository.auth.RoleRepository;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,8 +19,16 @@ public class PermissionService {
 
     private PermissionRepository permissionRepository;
 
-    public PermissionService(PermissionRepository permissionRepository) {
+    private RoleRepository roleRepository;
+
+    private PermissionMapper permissionMapper;
+
+    public PermissionService(PermissionRepository permissionRepository,
+                             RoleRepository roleRepository,
+                             PermissionMapper permissionMapper) {
         this.permissionRepository = permissionRepository;
+        this.roleRepository = roleRepository;
+        this.permissionMapper = permissionMapper;
     }
 
     @Cacheable(key = "#root.methodName + '/' + #username")
@@ -25,10 +36,17 @@ public class PermissionService {
         List<Permission> listPermission = permissionRepository.findAll();
         List<PermissionDto> permissionDtoList = listPermission.stream()
                 .map(x -> PermissionDto.builder()
+                        .id(x.getId())
                         .permissionName(x.getPermissionName())
                         .permissionInfo(x.getPermissionInfo()).builder())
                 .collect(Collectors.toList());
         return permissionDtoList;
+    }
+
+    @Cacheable(key = "#root.methodName")
+    public Set<PermissionDto> getPermissionByRoleId(Long userId) {
+        Set<Permission> listPermission = roleRepository.findById(userId).get().getPermissions();
+        return permissionMapper.listPermissionToListPermissionDto(listPermission);
     }
 
 }
