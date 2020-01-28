@@ -1,8 +1,8 @@
 package com.company.quiz.config.applicatioin;
 
 import com.company.quiz.security.jwt.JWTTokenVerifier;
-//import com.company.quiz.security.jwt.JWTUsernameAndPasswordAuthenticationFilter;
 import com.company.quiz.security.jwt.JWTUsernameAndPasswordAuthenticationFilter;
+import io.swagger.models.HttpMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,6 +46,18 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(getJWTAuthenticationFilter())
                 .addFilterAfter(new JWTTokenVerifier(), JWTUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
+                .antMatchers(
+                        "/swagger-ui.html",
+                        "/v2/api-docs",
+                        "/webjars/**",
+                        "/swagger-resources/**",
+                        "/configuration/**",
+                        "/*.html",
+                        "/favicon.ico",
+                        "/**/*.html",
+                        "/**/*.css",
+                        "/**/*.js")
+                .permitAll()
                 .anyRequest()
                 .authenticated();
     }
