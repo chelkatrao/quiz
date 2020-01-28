@@ -55,12 +55,26 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
-        configuration.setAllowedHeaders(Arrays.asList("content-type"));
+
+        configuration.setAllowedHeaders(
+                Arrays.asList(
+                "Access-Control-Allow-Headers",
+                "Access-Control-Allow-Origin",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers",
+                "Origin",
+                "Cache-Control",
+                "Content-Type",
+                "Authorization"));
+
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {

@@ -6,8 +6,6 @@ import com.company.quiz.model.auth.Role;
 import com.company.quiz.model.auth.User;
 import com.company.quiz.repository.auth.UserRepository;
 import com.company.quiz.service.UserSession;
-import com.sun.org.apache.bcel.internal.generic.ATHROW;
-import com.sun.org.apache.bcel.internal.generic.ExceptionThrower;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,8 +95,8 @@ public class UserService {
                                                                 PermissionDto.builder()
                                                                         .permissionInfo(permission.getPermissionInfo())
                                                                         .permissionName(permission.getPermissionName())
-                                                                        .build()).collect(Collectors.toSet())
-                                        ).build()).collect(Collectors.toSet())
+                                                                        .builder()).collect(Collectors.toSet())
+                                        ).builder()).collect(Collectors.toSet())
                         ).build()).collect(Collectors.toList());
         return userDtoList;
     }
