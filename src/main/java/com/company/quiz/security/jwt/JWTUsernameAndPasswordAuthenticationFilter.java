@@ -1,6 +1,5 @@
 package com.company.quiz.security.jwt;
 
-import com.company.quiz.config.applicatioin.ApplicationUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import io.jsonwebtoken.Jwts;
