@@ -2,7 +2,6 @@ package com.company.quiz.config.applicatioin;
 
 import com.company.quiz.security.jwt.JWTTokenVerifier;
 import com.company.quiz.security.jwt.JWTUsernameAndPasswordAuthenticationFilter;
-import io.swagger.models.HttpMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -56,7 +55,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/favicon.ico",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js")
+                        "/**/*.js"
+                )
                 .permitAll()
                 .anyRequest()
                 .authenticated();
@@ -77,7 +77,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 "Origin",
                 "Cache-Control",
                 "Content-Type",
-                "Authorization")
+                "Authorization"
+                )
         );
 
         configuration.setAllowCredentials(true);

@@ -29,7 +29,7 @@ public class ApplicationUserService implements UserDetailsService {
                 .credentialsNonExpired(true)
                 .grantedAuthorities(userDetailDto.getAuthentications())
                 .isEnabled(true)
-                .builder();
+                .build();
         return applicationUser;
     }
 
