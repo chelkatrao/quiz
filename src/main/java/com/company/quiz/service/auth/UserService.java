@@ -53,7 +53,7 @@ public class UserService {
 
     @CacheEvict
     @Transactional
-    public UserCreateDto createUser(UserCreateDto userCreateDto) {
+    public UserCreateDto createUser(UserCreateDto userCreateDto) throws Exception {
         User user = userMapper.toUser(userCreateDto);
         user = userRepository.save(user);
         return userMapper.toCreateDto(user);

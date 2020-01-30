@@ -3,10 +3,12 @@ package com.company.quiz.mapper.auth;
 import com.company.quiz.dto.auth.RoleDto;
 import com.company.quiz.dto.auth.UserCreateDto;
 import com.company.quiz.dto.auth.UserDto;
+import com.company.quiz.enums.quiz.*;
 import com.company.quiz.model.auth.Role;
 import com.company.quiz.model.auth.User;
 import com.company.quiz.repository.auth.RoleRepository;
 import com.company.quiz.service.UserSession;
+import com.google.common.collect.Sets;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -32,11 +34,11 @@ public class UserMapper {
         this.userSession = userSession;
     }
 
-    public User toUser(UserCreateDto userCreateDto) {
+    public User toUser(UserCreateDto userCreateDto) throws Exception {
         return toUser(userCreateDto, new User());
     }
 
-    public User toUser(UserCreateDto userCreateDto, User user) {
+    public User toUser(UserCreateDto userCreateDto, User user) throws Exception {
         if (userCreateDto.getPassword() != null)
             user.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
         user.setUsername(userCreateDto.getUsername());
@@ -51,6 +53,82 @@ public class UserMapper {
         } else {
             user.setRoles(null);
         }
+
+        if (userCreateDto.getIsEnum()) {
+            final int[] i = {0};
+            Sets.newHashSet(AnnualActivitiesEnum.values()).stream().forEach(
+                    x -> {
+                        if (x.getValue().equals(userCreateDto.getAnnualActivitiesEnum())) {
+                            i[0]++;
+                            user.setAnnualActivitiesEnum(x);
+                        }
+                    }
+            );
+            Sets.newHashSet(HoldersOfAcademicDegreeEnum.values()).stream().forEach(
+                    x -> {
+                        if (x.getValue().equals(userCreateDto.getHoldersOfAcademicDegreeEnum())) {
+                            i[0]++;
+                            user.setHoldersOfAcademicDegreeEnum(x);
+                        }
+                    }
+            );
+            Sets.newHashSet(InformationEnum.values()).stream().forEach(
+                    x -> {
+                        if (x.getValue().equals(userCreateDto.getInformationEnum())) {
+                            i[0]++;
+                            user.setInformationEnum(x);
+                        }
+                    }
+            );
+            Sets.newHashSet(NationalInnovation.values()).stream().forEach(
+                    x -> {
+                        if (x.getValue().equals(userCreateDto.getNationalInnovation())) {
+                            i[0]++;
+                            user.setNationalInnovation(x);
+                        }
+                    }
+            );
+            Sets.newHashSet(NumberOfWorkersEnum.values()).stream().forEach(
+                    x -> {
+                        if (x.getValue().equals(userCreateDto.getNumberOfWorkersEnum())) {
+                            i[0]++;
+                            user.setNumberOfWorkersEnum(x);
+                        }
+                    }
+            );
+
+            Sets.newHashSet(PositionEnum.values()).stream().forEach(
+                    x -> {
+                        if (x.getValue().equals(userCreateDto.getPositionEnum())) {
+                            i[0]++;
+                            user.setPositionEnum(x);
+                        }
+                    }
+            );
+
+            Sets.newHashSet(SexEnum.values()).stream().forEach(
+                    x -> {
+                        if (x.getValue().equals(userCreateDto.getSexEnum())) {
+                            i[0]++;
+                            user.setSexEnum(x);
+                        }
+                    }
+            );
+
+            Sets.newHashSet(TypeOfActivityEnum.values()).stream().forEach(
+                    x -> {
+                        if (x.getValue().equals(userCreateDto.getTypeOfActivityEnum())) {
+                            i[0]++;
+                            user.setTypeOfActivityEnum(x);
+                        }
+                    }
+            );
+            if (i[0] != 8) {
+                throw new Exception("fields are incorrect!!!");
+            }
+
+        }
+
         return user;
     }
 

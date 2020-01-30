@@ -32,7 +32,7 @@ public class UserController {
 
     @PostMapping("/new")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_WRITE')")
-    public UserCreateDto createUser(@RequestBody UserCreateDto userCreateDto) {
+    public UserCreateDto createUser(@RequestBody UserCreateDto userCreateDto) throws Exception {
         return userService.createUser(userCreateDto);
     }
 

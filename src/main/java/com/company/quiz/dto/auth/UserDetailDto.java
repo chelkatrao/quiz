@@ -1,12 +1,7 @@
 package com.company.quiz.dto.auth;
 
-import com.company.quiz.model.auth.Role;
-import com.company.quiz.service.auth.AuthorityService;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter

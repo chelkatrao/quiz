@@ -1,5 +1,6 @@
 package com.company.quiz.model.auth;
 
+import com.company.quiz.enums.quiz.*;
 import com.company.quiz.model.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -38,5 +39,38 @@ public class User extends BaseEntity {
             )
     )
     private Set<Role> roles;
+
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "annual_activities")
+    private AnnualActivitiesEnum annualActivitiesEnum;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "holders_of_academic_degree")
+    private HoldersOfAcademicDegreeEnum holdersOfAcademicDegreeEnum;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "information_enum")
+    private InformationEnum informationEnum;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "national_information")
+    private NationalInnovation nationalInnovation;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "number_of_workers")
+    private NumberOfWorkersEnum numberOfWorkersEnum;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "position")
+    private PositionEnum positionEnum;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sex")
+    private SexEnum sexEnum;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type_of_activity")
+    private TypeOfActivityEnum typeOfActivityEnum;
 
 }
