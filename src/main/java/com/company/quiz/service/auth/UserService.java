@@ -63,6 +63,9 @@ public class UserService {
     public UserDetailDto getUserByUsername(String username) {
 
         User user = userRepository.findByUsername(username);
+        if (user == null) {
+            return null;
+        }
         Set<SimpleGrantedAuthority> authentications = new HashSet<>();
 
         for (Role role : user.getRoles()) {

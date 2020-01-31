@@ -1,5 +1,7 @@
 package com.company.quiz.security.jwt;
 
+import com.company.quiz.dto.auth.UserDetailDto;
+import com.company.quiz.service.auth.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import io.jsonwebtoken.Jwts;
@@ -17,7 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -27,8 +31,12 @@ public class JWTUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
     private final AuthenticationManager authenticationManager;
 
-    public JWTUsernameAndPasswordAuthenticationFilter(AuthenticationManager authenticationManager) {
+    private final UserService userService;
+
+    public JWTUsernameAndPasswordAuthenticationFilter(AuthenticationManager authenticationManager,
+                                                      UserService userService) {
         this.authenticationManager = authenticationManager;
+        this.userService = userService;
     }
 
     @Override
@@ -39,11 +47,24 @@ public class JWTUsernameAndPasswordAuthenticationFilter extends UsernamePassword
             UsernameAndPasswordAuthenticationRequest authenticationRequest = new ObjectMapper()
                     .readValue(request.getInputStream(), UsernameAndPasswordAuthenticationRequest.class);
             Authentication authentication = new UsernamePasswordAuthenticationToken(
-                    authenticationRequest.getPassword(), // principal = username
-                    authenticationRequest.getUsername() // credential = password
+                    authenticationRequest.getPassword(), //  credential = password
+                    authenticationRequest.getUsername()  //  principal = username
             );
 
-            Authentication authenticate = authenticationManager.authenticate(authentication);
+            UserDetailDto dto = userService.getUserByUsername(authenticationRequest.getUsername());
+            Authentication authenticate = null;
+            if (dto != null) {
+                authenticate = authenticationManager.authenticate(authentication);
+            } else {
+                Gson gson = new Gson();
+                Map map = new HashMap();
+                map.put("timestamp", LocalDateTime.now());
+                map.put("message", "Access denied");
+                gson.toJson(map);
+                response.setContentType("application/json;charset=UTF-8");
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                response.getWriter().write(gson.toJson(map));
+            }
             return authenticate;
 
         } catch (IOException e) {
@@ -74,6 +95,7 @@ public class JWTUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         responseDate.put("permissions", authResult.getAuthorities());
         responseDate.put("username", authResult.getName());
 
+        response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(gson.toJson(responseDate));
         response.setStatus(HttpServletResponse.SC_OK);
     }

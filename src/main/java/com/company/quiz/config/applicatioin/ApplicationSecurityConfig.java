@@ -2,6 +2,7 @@ package com.company.quiz.config.applicatioin;
 
 import com.company.quiz.security.jwt.JWTTokenVerifier;
 import com.company.quiz.security.jwt.JWTUsernameAndPasswordAuthenticationFilter;
+import com.company.quiz.service.auth.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,12 +27,14 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
     private final ApplicationUserService applicationUserService;
+    private final UserService userService;
 
     @Autowired
     public ApplicationSecurityConfig(PasswordEncoder passwordEncoder,
-                                     ApplicationUserService applicationUserService) {
+                                     ApplicationUserService applicationUserService, UserService userService) {
         this.passwordEncoder = passwordEncoder;
         this.applicationUserService = applicationUserService;
+        this.userService = userService;
     }
 
     @Override
@@ -46,6 +49,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new JWTTokenVerifier(), JWTUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers(
+                        "/auth/user/new",
                         "/swagger-ui.html",
                         "/v2/api-docs",
                         "/webjars/**",
@@ -104,7 +108,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     public JWTUsernameAndPasswordAuthenticationFilter getJWTAuthenticationFilter() throws Exception {
-        final JWTUsernameAndPasswordAuthenticationFilter filter = new JWTUsernameAndPasswordAuthenticationFilter(authenticationManager());
+        final JWTUsernameAndPasswordAuthenticationFilter filter =
+                new JWTUsernameAndPasswordAuthenticationFilter(authenticationManager(),userService);
         filter.setFilterProcessesUrl("/auth/authentication");
         return filter;
     }
