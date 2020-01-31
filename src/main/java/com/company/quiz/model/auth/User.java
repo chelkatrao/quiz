@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
@@ -28,6 +30,25 @@ public class User extends BaseEntity {
     @Column(length = 50, nullable = false)
     private String password;
 
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "full_name", length = 50, nullable = false)
+    private String fullName;
+
+    @NotNull
+    @Column(name = "phone", length = 12, nullable = false)
+    private String phone;
+
+    @Email
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "path_of_company")
+    private String pathOfCompany;
+
+    @Column(name = "innovation_part_per")
+    private Double innovationPartPer;
+
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
@@ -39,7 +60,6 @@ public class User extends BaseEntity {
             )
     )
     private Set<Role> roles;
-
 
     @Enumerated(EnumType.STRING)
     @Column(name = "annual_activities")

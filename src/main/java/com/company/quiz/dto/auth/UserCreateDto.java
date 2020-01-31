@@ -16,6 +16,12 @@ public class UserCreateDto {
     private Set<Long> roleIds;
     private Boolean isEnum;
 
+    private String fullName;
+    private String phone;
+    private String email;
+    private String pathOfCompany;
+    private Double innovationPartPer;
+
     //enums
     private String annualActivitiesEnum;
     private String holdersOfAcademicDegreeEnum;
@@ -39,7 +45,12 @@ public class UserCreateDto {
                          String positionEnum,
                          String sexEnum,
                          String typeOfActivityEnum,
-                         Boolean isEnum
+                         Boolean isEnum,
+                         String fullName,
+                         String phone,
+                         String email,
+                         String pathOfCompany,
+                         Double innovationPartPer
     ) {
         this.id = id;
         this.username = username;
@@ -54,5 +65,10 @@ public class UserCreateDto {
         this.sexEnum = sexEnum;
         this.typeOfActivityEnum = typeOfActivityEnum;
         this.isEnum = isEnum;
+        this.fullName = fullName;
+        this.phone = phone;
+        this.email = email;
+        this.pathOfCompany = pathOfCompany;
+        this.innovationPartPer = innovationPartPer;
     }
 }
