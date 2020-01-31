@@ -7,7 +7,9 @@ public enum TypeOfActivityEnum {
     OPTION_3("Транспорт ва алоқа"),
     OPTION_4("Савдо"),
     OPTION_5("Бошқа (кўрсатинг)"),
-    OPTION_6("Бошқарув");
+    OPTION_6("Бошқарув"),
+    OPTION_7("Қурилиш"),
+    OPTION_8("Хизмат кўрсатиш");
 
     private String value;
 
