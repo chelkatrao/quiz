@@ -1,6 +1,5 @@
 package com.company.quiz.dto.auth;
 
-import com.company.quiz.enums.quiz.AnnualActivitiesEnum;
 import lombok.*;
 
 import java.util.Set;
@@ -26,7 +25,7 @@ public class UserCreateDto {
     private String annualActivitiesEnum;
     private String holdersOfAcademicDegreeEnum;
     private String informationEnum;
-    private String nationalInnovation;
+    private String nationalInnovationEnum;
     private String numberOfWorkersEnum;
     private String positionEnum;
     private String sexEnum;
@@ -40,7 +39,7 @@ public class UserCreateDto {
                          String annualActivitiesEnum,
                          String holdersOfAcademicDegreeEnum,
                          String informationEnum,
-                         String nationalInnovation,
+                         String nationalInnovationEnum,
                          String numberOfWorkersEnum,
                          String positionEnum,
                          String sexEnum,
@@ -59,7 +58,7 @@ public class UserCreateDto {
         this.annualActivitiesEnum = annualActivitiesEnum;
         this.holdersOfAcademicDegreeEnum = holdersOfAcademicDegreeEnum;
         this.informationEnum = informationEnum;
-        this.nationalInnovation = nationalInnovation;
+        this.nationalInnovationEnum = nationalInnovationEnum;
         this.numberOfWorkersEnum = numberOfWorkersEnum;
         this.positionEnum = positionEnum;
         this.sexEnum = sexEnum;

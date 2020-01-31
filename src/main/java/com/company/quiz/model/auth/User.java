@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -62,35 +61,35 @@ public class User extends BaseEntity {
     private Set<Role> roles;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "annual_activities")
+    @Column(name = "annual_activities",length = 100)
     private AnnualActivitiesEnum annualActivitiesEnum;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "holders_of_academic_degree")
+    @Column(name = "holders_of_academic_degree",length = 100)
     private HoldersOfAcademicDegreeEnum holdersOfAcademicDegreeEnum;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "information_enum")
+    @Column(name = "information_enum",length = 100)
     private InformationEnum informationEnum;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "national_information")
-    private NationalInnovation nationalInnovation;
+    @Column(name = "national_information", length = 100)
+    private NationalInnovationEnum nationalInnovationEnum;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "number_of_workers")
+    @Column(name = "number_of_workers", length = 100)
     private NumberOfWorkersEnum numberOfWorkersEnum;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "position")
+    @Column(name = "position",length = 100)
     private PositionEnum positionEnum;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "sex")
+    @Column(name = "sex",length = 100)
     private SexEnum sexEnum;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type_of_activity")
+    @Column(name = "type_of_activity",length = 100)
     private TypeOfActivityEnum typeOfActivityEnum;
 
 }

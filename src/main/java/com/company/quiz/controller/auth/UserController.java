@@ -32,8 +32,9 @@ public class UserController {
 
     @PostMapping("/new")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_WRITE')")
-    public UserCreateDto createUser(@RequestBody UserCreateDto userCreateDto) throws Exception {
-        return userService.createUser(userCreateDto);
+    public String createUser(@RequestBody UserCreateDto userCreateDto) throws Exception {
+        userService.createUser(userCreateDto);
+        return "success";
     }
 
     @GetMapping("/remove/{id}")
@@ -46,6 +47,6 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_WRITE')")
     public UserCreateDto updateUser(@RequestBody UserCreateDto userUpdateDto,
                                     @PathVariable("id") Long id) throws Throwable {
-        return userService.updateUser(userUpdateDto,id);
+        return userService.updateUser(userUpdateDto, id);
     }
 }

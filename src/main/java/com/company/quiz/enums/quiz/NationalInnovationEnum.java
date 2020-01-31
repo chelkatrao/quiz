@@ -1,6 +1,6 @@
 package com.company.quiz.enums.quiz;
 
-public enum NationalInnovation {
+public enum NationalInnovationEnum {
 
     OPTION_1("Ҳа. Маҳсулотларни сотиш бозорларини кенгайтириш"),
     OPTION_2("Ҳа. Маҳсулотларни сотишни янги йўналишларини очиш имконияти"),
@@ -8,7 +8,7 @@ public enum NationalInnovation {
 
     private String value;
 
-    NationalInnovation(String value) {
+    NationalInnovationEnum(String value) {
         this.value = value;
     }
 

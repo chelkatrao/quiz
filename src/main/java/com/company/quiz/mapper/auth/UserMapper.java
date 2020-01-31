@@ -83,10 +83,10 @@ public class UserMapper {
                         }
                     }
             );
-            Sets.newHashSet(NationalInnovation.values()).stream().forEach(x -> {
-                        if (x.getValue().equals(userCreateDto.getNationalInnovation())) {
+            Sets.newHashSet(NationalInnovationEnum.values()).stream().forEach(x -> {
+                        if (x.getValue().equals(userCreateDto.getNationalInnovationEnum())) {
                             i[0]++;
-                            user.setNationalInnovation(x);
+                            user.setNationalInnovationEnum(x);
                         }
                     }
             );
