@@ -49,7 +49,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new JWTTokenVerifier(), JWTUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers(
-                        "/auth/user/new",
                         "/swagger-ui.html",
                         "/v2/api-docs",
                         "/webjars/**",
