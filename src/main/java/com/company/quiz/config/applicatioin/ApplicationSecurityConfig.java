@@ -38,7 +38,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         this.userService = userService;
     }
 
-    //  TODO: registratsiya uchun tashqariga dostupni ochish kerak
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -48,7 +47,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(getJWTAuthenticationFilter())
-                .addFilterAfter(new JWTTokenVerifier(), JWTUsernameAndPasswordAuthenticationFilter.class)
+                .addFilterAfter(new JWTTokenVerifier(),
+                        JWTUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers(
                         "/swagger-ui.html",
