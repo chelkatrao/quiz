@@ -12,14 +12,12 @@ import lombok.Setter;
 public class SubAnswerDto {
     private Long id;
     private String values;
-    private AnswerDto answer;
 
     @Builder(builderMethodName = "builder")
     public SubAnswerDto(Long id,
-                        String values,
-                        AnswerDto answer) {
+                        String values
+                        ) {
         this.id = id;
         this.values = values;
-        this.answer = answer;
     }
 }

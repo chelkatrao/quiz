@@ -15,7 +15,7 @@ public class Answer extends BaseEntity {
     @Column(name = "value")
     private String value;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "question_id")
     private Question questionId;
 

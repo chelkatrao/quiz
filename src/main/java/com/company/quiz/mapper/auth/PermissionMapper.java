@@ -18,7 +18,7 @@ public class PermissionMapper {
                         .id(x.getId())
                         .permissionInfo(x.getPermissionInfo())
                         .permissionName(x.getPermissionName())
-                        .build()
+                        .builder()
                 ).collect(Collectors.toSet());
         return listPermissionDto;
     }

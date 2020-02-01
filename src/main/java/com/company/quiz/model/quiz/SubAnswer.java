@@ -15,7 +15,7 @@ public class SubAnswer extends BaseEntity {
     @Column(name = "value")
     private String value;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "answer_id")
     private Answer answer;
 

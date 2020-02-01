@@ -3,7 +3,6 @@ package com.company.quiz.config.applicatioin;
 import com.company.quiz.security.jwt.JWTTokenVerifier;
 import com.company.quiz.security.jwt.JWTUsernameAndPasswordAuthenticationFilter;
 import com.company.quiz.service.auth.UserService;
-import io.swagger.models.HttpMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

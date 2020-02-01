@@ -12,16 +12,14 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 public class QuestionDto {
+
     private Long id;
     private String value;
-    private Set<AnswerDto> answers;
 
     @Builder(builderMethodName = "builder")
     public QuestionDto(Long id,
-                       String value,
-                       Set<AnswerDto> answers) {
+                       String value) {
         this.id = id;
         this.value = value;
-        this.answers = answers;
     }
 }
