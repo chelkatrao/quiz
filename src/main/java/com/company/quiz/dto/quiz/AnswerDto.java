@@ -22,8 +22,7 @@ public class AnswerDto {
     public AnswerDto(Long id,
                      String value,
                      Boolean isSub,
-                     Long questionId
-    ) {
+                     Long questionId) {
         this.id = id;
         this.value = value;
         this.isSub = isSub;

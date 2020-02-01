@@ -17,7 +17,7 @@ public class Answer extends BaseEntity {
 
     @OneToOne
     @JoinColumn(name = "question_id")
-    private Question questionId;
+    private Question question;
 
     @Column(name = "is_sub")
     private Boolean isSub;

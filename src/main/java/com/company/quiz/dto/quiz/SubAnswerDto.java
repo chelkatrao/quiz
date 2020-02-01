@@ -15,8 +15,7 @@ public class SubAnswerDto {
 
     @Builder(builderMethodName = "builder")
     public SubAnswerDto(Long id,
-                        String values
-                        ) {
+                        String values) {
         this.id = id;
         this.values = values;
     }

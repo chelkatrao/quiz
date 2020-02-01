@@ -28,4 +28,5 @@ public class QuestionController {
     public List<QuestionDto> listQuestion() {
         return questionService.listQuestion();
     }
+
 }
