@@ -2,10 +2,9 @@ package com.company.quiz.controller.quiz;
 
 import com.company.quiz.dto.quiz.QuestionDto;
 import com.company.quiz.service.quiz.QuestionService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("quiz/question")
@@ -22,4 +21,8 @@ public class QuestionController {
         return questionService.createQuestion(questionDto);
     }
 
+    @GetMapping("/list")
+    public List<QuestionDto> listQuestion() {
+        return questionService.listQuestion();
+    }
 }
