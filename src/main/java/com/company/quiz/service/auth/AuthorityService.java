@@ -69,7 +69,7 @@ public class AuthorityService {
         if (isUserExist == null) {
             User user = new User();
             Role isRoleExist = roleRepository.findByRoleName("SUPER_ADMIN_ROLE");
-            user.setPassword("$2y$10$imGhf2NcH7s9zG0kNpR28ui72ITAVLxnzvOxnwH4UiDdKlYnoQIdK");
+            user.setPassword("$2y$10$at14q5DfRC7YZ1bBovgFRu.O8YWyDVsemePzUpTe6dEuUybyfATtq");
             user.setUsername("admin");
             user.setRoles(Sets.newHashSet(isRoleExist));
             user.setPhone("998999999999");
