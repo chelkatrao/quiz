@@ -44,9 +44,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .cors().and()
                 .csrf().disable()
-//                .authorizeRequests().antMatchers("/api/auth/user/new")
-//                .permitAll()
-//                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
