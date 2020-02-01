@@ -3,6 +3,7 @@ package com.company.quiz.config.applicatioin;
 import com.company.quiz.security.jwt.JWTTokenVerifier;
 import com.company.quiz.security.jwt.JWTUsernameAndPasswordAuthenticationFilter;
 import com.company.quiz.service.auth.UserService;
+import io.swagger.models.HttpMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,11 +38,15 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         this.userService = userService;
     }
 
+    //  TODO: registratsiya uchun tashqariga dostupni ochish kerak
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .cors().and()
                 .csrf().disable()
+//                .authorizeRequests().antMatchers("/api/auth/user/new")
+//                .permitAll()
+//                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -73,14 +78,14 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
         configuration.setAllowedHeaders(
                 Arrays.asList(
-                "Access-Control-Allow-Headers",
-                "Access-Control-Allow-Origin",
-                "Access-Control-Request-Method",
-                "Access-Control-Request-Headers",
-                "Origin",
-                "Cache-Control",
-                "Content-Type",
-                "Authorization"
+                        "Access-Control-Allow-Headers",
+                        "Access-Control-Allow-Origin",
+                        "Access-Control-Request-Method",
+                        "Access-Control-Request-Headers",
+                        "Origin",
+                        "Cache-Control",
+                        "Content-Type",
+                        "Authorization"
                 )
         );
 
@@ -89,8 +94,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
-
 
 
     @Override
@@ -108,7 +111,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public JWTUsernameAndPasswordAuthenticationFilter getJWTAuthenticationFilter() throws Exception {
         final JWTUsernameAndPasswordAuthenticationFilter filter =
-                new JWTUsernameAndPasswordAuthenticationFilter(authenticationManager(),userService);
+                new JWTUsernameAndPasswordAuthenticationFilter(authenticationManager(), userService);
         filter.setFilterProcessesUrl("/auth/authentication");
         return filter;
     }

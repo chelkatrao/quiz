@@ -42,7 +42,8 @@ public class UserMapper {
         if (userCreateDto.getPassword() != null)
             user.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
         user.setUsername(userCreateDto.getUsername());
-        user.setCreateBy(userSession.getUser().getUsername());
+        if (userSession.getUser() != null)
+            user.setCreateBy(userSession.getUser().getUsername());
         user.setFullName(userCreateDto.getFullName());
         user.setPhone(userCreateDto.getPhone());
         user.setEmail(userCreateDto.getEmail());

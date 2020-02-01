@@ -20,7 +20,10 @@ public class UserSession {
 
     public User getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByUsername((String) authentication.getPrincipal());
+        User user = null;
+        if(authentication!=null) {
+            user = userRepository.findByUsername((String) authentication.getPrincipal());
+        }
         return user;
     }
 

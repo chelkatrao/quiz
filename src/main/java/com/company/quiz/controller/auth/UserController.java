@@ -30,8 +30,8 @@ public class UserController {
         return userService.getUserList();
     }
 
+//    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_WRITE')")
     @PostMapping("/new")
-    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_WRITE')")
     public String createUser(@RequestBody UserCreateDto userCreateDto) throws Exception {
         userService.createUser(userCreateDto);
         return "success";
