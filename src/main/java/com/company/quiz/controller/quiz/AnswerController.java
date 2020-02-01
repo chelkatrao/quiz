@@ -19,14 +19,14 @@ public class AnswerController {
 
     @PostMapping("/new")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_WRITE')")
-    public List<AnswerDto> createAnswer(@RequestBody List<AnswerDto> answerDtoList) {
+    public String createAnswer(@RequestBody List<AnswerDto> answerDtoList) {
         return answerService.createAnswer(answerDtoList);
     }
 
-    @GetMapping("/list/{permissionId}")
+    @GetMapping("/list/{questionId}")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_READ')")
-    public List<AnswerDto> listAnswerByQuestionId(@PathVariable("permissionId") Long permissionId) {
-        return answerService.listAnswerByQuestionId(permissionId);
+    public List<AnswerDto> listAnswerByQuestionId(@PathVariable("questionId") Long questionId) {
+        return answerService.listAnswerByQuestionId(questionId);
     }
 
 }

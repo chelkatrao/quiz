@@ -11,12 +11,15 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SubAnswerDto {
     private Long id;
-    private String values;
+    private String value;
+    private Long parentAnswer;
 
     @Builder(builderMethodName = "builder")
     public SubAnswerDto(Long id,
-                        String values) {
+                        String value,
+                        Long parentAnswer) {
         this.id = id;
-        this.values = values;
+        this.value = value;
+        this.parentAnswer = parentAnswer;
     }
 }

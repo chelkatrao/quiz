@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,15 +17,18 @@ public class AnswerDto {
     private String value;
     private Boolean isSub;
     private Long questionId;
+    private List<SubAnswerDto> subAnswerDtoList;
 
     @Builder(builderMethodName = "builder")
     public AnswerDto(Long id,
                      String value,
                      Boolean isSub,
-                     Long questionId) {
+                     Long questionId,
+                     List<SubAnswerDto> subAnswerDtoList) {
         this.id = id;
         this.value = value;
         this.isSub = isSub;
         this.questionId = questionId;
+        this.subAnswerDtoList = subAnswerDtoList;
     }
 }
