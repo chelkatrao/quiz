@@ -42,8 +42,11 @@ public class UserMapper {
         if (userCreateDto.getPassword() != null)
             user.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
         user.setUsername(userCreateDto.getUsername());
-        if (userSession.getUser() != null)
+        if (userSession.getUser() != null) {
             user.setCreateBy(userSession.getUser().getUsername());
+        } else {
+            user.setCreateBy("user");
+        }
         user.setFullName(userCreateDto.getFullName());
         user.setPhone(userCreateDto.getPhone());
         user.setEmail(userCreateDto.getEmail());
@@ -66,35 +69,35 @@ public class UserMapper {
             Sets.newHashSet(AnnualActivitiesEnum.values()).stream().forEach(x -> {
                         if (x.getValue().equals(userCreateDto.getAnnualActivitiesEnum())) {
                             i[0]++;
-                            user.setAnnualActivitiesEnum(x);
+                            user.setAnnualActivitiesEnum(x.getValue());
                         }
                     }
             );
             Sets.newHashSet(HoldersOfAcademicDegreeEnum.values()).stream().forEach(x -> {
                         if (x.getValue().equals(userCreateDto.getHoldersOfAcademicDegreeEnum())) {
                             i[0]++;
-                            user.setHoldersOfAcademicDegreeEnum(x);
+                            user.setHoldersOfAcademicDegreeEnum(x.getValue());
                         }
                     }
             );
             Sets.newHashSet(InformationEnum.values()).stream().forEach(x -> {
                         if (x.getValue().equals(userCreateDto.getInformationEnum())) {
                             i[0]++;
-                            user.setInformationEnum(x);
+                            user.setInformationEnum(x.getValue());
                         }
                     }
             );
             Sets.newHashSet(NationalInnovationEnum.values()).stream().forEach(x -> {
                         if (x.getValue().equals(userCreateDto.getNationalInnovationEnum())) {
                             i[0]++;
-                            user.setNationalInnovationEnum(x);
+                            user.setNationalInnovationEnum(x.getValue());
                         }
                     }
             );
             Sets.newHashSet(NumberOfWorkersEnum.values()).stream().forEach(x -> {
                         if (x.getValue().equals(userCreateDto.getNumberOfWorkersEnum())) {
                             i[0]++;
-                            user.setNumberOfWorkersEnum(x);
+                            user.setNumberOfWorkersEnum(x.getValue());
                         }
                     }
             );
@@ -102,7 +105,7 @@ public class UserMapper {
             Sets.newHashSet(PositionEnum.values()).stream().forEach(x -> {
                         if (x.getValue().equals(userCreateDto.getPositionEnum())) {
                             i[0]++;
-                            user.setPositionEnum(x);
+                            user.setPositionEnum(x.getValue());
                         }
                     }
             );
@@ -110,7 +113,7 @@ public class UserMapper {
             Sets.newHashSet(SexEnum.values()).stream().forEach(x -> {
                         if (x.getValue().equals(userCreateDto.getSexEnum())) {
                             i[0]++;
-                            user.setSexEnum(x);
+                            user.setSexEnum(x.getValue());
                         }
                     }
             );
@@ -118,7 +121,7 @@ public class UserMapper {
             Sets.newHashSet(TypeOfActivityEnum.values()).stream().forEach(x -> {
                         if (x.getValue().equals(userCreateDto.getTypeOfActivityEnum())) {
                             i[0]++;
-                            user.setTypeOfActivityEnum(x);
+                            user.setTypeOfActivityEnum(x.getValue());
                         }
                     }
             );

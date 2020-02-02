@@ -60,36 +60,28 @@ public class User extends BaseEntity {
     )
     private Set<Role> roles;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "annual_activities",length = 100)
-    private AnnualActivitiesEnum annualActivitiesEnum;
+    private String annualActivitiesEnum;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "holders_of_academic_degree",length = 100)
-    private HoldersOfAcademicDegreeEnum holdersOfAcademicDegreeEnum;
+    private String holdersOfAcademicDegreeEnum;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "information_enum",length = 100)
-    private InformationEnum informationEnum;
+    private String informationEnum;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "national_information", length = 100)
-    private NationalInnovationEnum nationalInnovationEnum;
+    private String nationalInnovationEnum;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "number_of_workers", length = 100)
-    private NumberOfWorkersEnum numberOfWorkersEnum;
+    private String numberOfWorkersEnum;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "position",length = 100)
-    private PositionEnum positionEnum;
+    private String positionEnum;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "sex",length = 100)
-    private SexEnum sexEnum;
+    private String sexEnum;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "type_of_activity",length = 100)
-    private TypeOfActivityEnum typeOfActivityEnum;
+    private String typeOfActivityEnum;
 
 }
