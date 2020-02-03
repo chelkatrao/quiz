@@ -15,7 +15,6 @@ public class RoleDto {
     private String roleName;
     private Set<PermissionDto> permission;
 
-    @Builder(buildMethodName = "builder")
     public RoleDto(Long id,
                    String roleInfo,
                    String roleName,

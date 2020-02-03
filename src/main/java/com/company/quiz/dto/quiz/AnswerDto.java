@@ -19,7 +19,6 @@ public class AnswerDto {
     private Long questionId;
     private List<SubAnswerDto> subAnswerDtoList;
 
-    @Builder(builderMethodName = "builder")
     public AnswerDto(Long id,
                      String value,
                      Boolean isSub,

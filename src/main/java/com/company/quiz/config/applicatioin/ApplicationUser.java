@@ -18,7 +18,6 @@ public class ApplicationUser implements UserDetails {
     private final Boolean isEnabled;
     private final Set<? extends GrantedAuthority> grantedAuthorities;
 
-    @Builder(buildMethodName = "builder")
     public ApplicationUser(String password,
                            String username,
                            Boolean accountNonExpired,

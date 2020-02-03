@@ -160,7 +160,7 @@ public class UserMapper {
                                                 .id(role.getId())
                                                 .roleName(role.getRoleName())
                                                 .roleInfo(role.getRoleInfo())
-                                                .builder()
+                                                .build()
                                         ).collect(Collectors.toSet())
                                 ).build())
                 .collect(Collectors.toList());

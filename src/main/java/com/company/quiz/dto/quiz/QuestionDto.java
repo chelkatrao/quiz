@@ -16,7 +16,6 @@ public class QuestionDto {
     private Long id;
     private String value;
 
-    @Builder(builderMethodName = "builder")
     public QuestionDto(Long id,
                        String value) {
         this.id = id;

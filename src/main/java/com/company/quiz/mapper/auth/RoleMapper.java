@@ -72,9 +72,9 @@ public class RoleMapper {
                                                         .id(per.getId())
                                                         .permissionName(per.getPermissionName())
                                                         .permissionInfo(per.getPermissionInfo())
-                                                        .builder()
+                                                        .build()
                                         ).collect(Collectors.toSet())
-                        ).builder()
+                        ).build()
                 ).collect(Collectors.toSet());
         return listRoleDto;
     }

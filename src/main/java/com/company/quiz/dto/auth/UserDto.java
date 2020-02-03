@@ -16,7 +16,6 @@ public class UserDto {
     private String username;
     private Set<RoleDto> roles;
 
-    @Builder(builderMethodName = "builder")
     public UserDto(Long id,
                    String username,
                    Set<RoleDto> roles) {

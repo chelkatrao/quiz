@@ -1,9 +1,7 @@
 package com.company.quiz.mapper.auth;
 
 import com.company.quiz.dto.auth.PermissionDto;
-import com.company.quiz.dto.auth.RoleDto;
 import com.company.quiz.model.auth.Permission;
-import com.company.quiz.model.auth.Role;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -18,7 +16,7 @@ public class PermissionMapper {
                         .id(x.getId())
                         .permissionInfo(x.getPermissionInfo())
                         .permissionName(x.getPermissionName())
-                        .builder()
+                        .build()
                 ).collect(Collectors.toSet());
         return listPermissionDto;
     }

@@ -31,7 +31,6 @@ public class UserCreateDto {
     private String sexEnum;
     private String typeOfActivityEnum;
 
-    @Builder(builderMethodName = "builder")
     public UserCreateDto(Long id,
                          String username,
                          String password,

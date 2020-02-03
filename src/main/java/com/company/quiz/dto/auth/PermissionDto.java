@@ -11,7 +11,6 @@ public class PermissionDto {
     private String permissionInfo;
     private String permissionName;
 
-    @Builder(buildMethodName = "builder")
     public PermissionDto(Long id,
                          String permissionInfo,
                          String permissionName) {

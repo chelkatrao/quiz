@@ -14,7 +14,6 @@ public class SubAnswerDto {
     private String value;
     private Long parentAnswer;
 
-    @Builder(builderMethodName = "builder")
     public SubAnswerDto(Long id,
                         String value,
                         Long parentAnswer) {

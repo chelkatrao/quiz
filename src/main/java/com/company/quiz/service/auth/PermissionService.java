@@ -38,7 +38,8 @@ public class PermissionService {
                 .map(x -> PermissionDto.builder()
                         .id(x.getId())
                         .permissionName(x.getPermissionName())
-                        .permissionInfo(x.getPermissionInfo()).builder())
+                        .permissionInfo(x.getPermissionInfo())
+                        .build())
                 .collect(Collectors.toList());
         return permissionDtoList;
     }

@@ -98,8 +98,8 @@ public class UserService {
                                                                 PermissionDto.builder()
                                                                         .permissionInfo(permission.getPermissionInfo())
                                                                         .permissionName(permission.getPermissionName())
-                                                                        .builder()).collect(Collectors.toSet())
-                                        ).builder()).collect(Collectors.toSet())
+                                                                        .build()).collect(Collectors.toSet())
+                                        ).build()).collect(Collectors.toSet())
                         ).build()).collect(Collectors.toList());
         return userDtoList;
     }

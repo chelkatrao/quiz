@@ -17,7 +17,6 @@ public class ScoreDto {
     private Long answerId;
     private Long subAnswerId;
 
-    @Builder(builderMethodName = "builder")
     public ScoreDto(Long id,
                     Long userId,
                     Long questionId,

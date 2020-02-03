@@ -18,8 +18,10 @@ public class RoleCreateDto {
     private String roleName;
     private Set<Long> permissionIds;
 
-    @Builder(builderMethodName = "builder")
-    public RoleCreateDto(Long id, String roleInfo, String roleName, Set<Long> permissionIds) {
+    public RoleCreateDto(Long id,
+                         String roleInfo,
+                         String roleName,
+                         Set<Long> permissionIds) {
         this.id = id;
         this.roleInfo = roleInfo;
         this.roleName = roleName;
