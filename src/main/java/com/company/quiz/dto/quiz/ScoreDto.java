@@ -1,5 +1,6 @@
 package com.company.quiz.dto.quiz;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import lombok.Setter;
 public class ScoreDto {
 
     private Long id;
+    @JsonIgnore
     private Long userId;
     private Long questionId;
     private Long answerId;

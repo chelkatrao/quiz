@@ -7,6 +7,11 @@ import com.company.quiz.model.quiz.Answer;
 import com.company.quiz.model.quiz.SubAnswer;
 import com.company.quiz.repository.quiz.AnswerRepository;
 import com.company.quiz.repository.quiz.SubAnswerRepository;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@CacheConfig(cacheNames = {"answerServiceCache"})
 public class AnswerService {
 
     private AnswerRepository answerRepository;
@@ -32,6 +38,7 @@ public class AnswerService {
     }
 
     @Transactional
+    @CacheEvict
     public String createAnswer(List<AnswerDto> answerDtoList) {
         answerDtoList
                 .forEach(answerDto -> {
@@ -50,6 +57,7 @@ public class AnswerService {
         return "success";
     }
 
+    @Cacheable(key = "#root.method")
     public List<AnswerDto> listAnswerByQuestionId(Long questionId) {
         List<Answer> listAnswers = answerRepository.findByQuestionId(questionId);
         return listAnswers.stream()
@@ -60,5 +68,22 @@ public class AnswerService {
                         .questionId(answer.getQuestion().getId())
                         .build()
                 ).collect(Collectors.toList());
+    }
+
+    @CacheEvict
+    @Transactional
+    public ResponseEntity<?> deleteAnswer(Long id) {
+        List<SubAnswer> subAnswerList = subAnswerRepository.findByAnswerId(id);
+        subAnswerList.forEach(subAnswer -> {
+            subAnswerRepository.delete(subAnswer);
+        });
+        answerRepository.deleteById(id);
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @CacheEvict
+    public ResponseEntity<?> deleteSubAnswer(Long id) {
+        subAnswerRepository.deleteById(id);
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 }
