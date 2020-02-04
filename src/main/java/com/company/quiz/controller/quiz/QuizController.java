@@ -21,4 +21,5 @@ public class QuizController {
     public ResponseQuziDate getListQuiz(@RequestBody Pagination pagination) {
         return quizService.getListQuiz(pagination);
     }
+
 }
