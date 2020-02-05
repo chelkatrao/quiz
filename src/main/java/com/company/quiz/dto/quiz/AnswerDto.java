@@ -19,7 +19,7 @@ public class AnswerDto {
     private Long questionId;
     private Boolean isSub;
     private List<SubAnswerDto> subAnswerDtoList;
-    private Boolean isEnableInput = true;
+    private Boolean isEnableInput;
 
     public AnswerDto(Long id,
                      String value,

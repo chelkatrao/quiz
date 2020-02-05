@@ -66,7 +66,9 @@ public class QuizMapper {
                                                                                         .value(subAnswer.getValue())
                                                                                         .build()
                                                                         ).collect(Collectors.toList())
-                                                        ).build()
+                                                        )
+                                                        .isEnableInput(true)
+                                                        .build()
                                         ).collect(Collectors.toList())
                                 ).build()
                 ).collect(Collectors.toList());
