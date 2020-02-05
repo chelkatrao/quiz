@@ -31,9 +31,15 @@ public class ScoreMapper {
 
     public Score toScore(ScoreDto scoreDto) {
         Score score = new Score();
-        Question question = questionRepository.findById(scoreDto.getQuestionId()).get();
-        Answer answer = answerRepository.findById(scoreDto.getAnswerId()).get();
-        SubAnswer subAnswer = subAnswerRepository.findById(scoreDto.getSubAnswerId()).get();
+        Question question = null;
+        Answer answer = null;
+        SubAnswer subAnswer = null;
+        if (scoreDto.getQuestionId() != null)
+            question = questionRepository.findById(scoreDto.getQuestionId()).get();
+        if (scoreDto.getAnswerId() != null)
+            answer = answerRepository.findById(scoreDto.getAnswerId()).get();
+        if (scoreDto.getSubAnswerId() != null)
+            subAnswer = subAnswerRepository.findById(scoreDto.getSubAnswerId()).get();
 
         score.setUser(userSession.getUser());
         score.setQuestion(question);
