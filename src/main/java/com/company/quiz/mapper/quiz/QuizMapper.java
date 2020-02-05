@@ -51,6 +51,8 @@ public class QuizMapper {
                                                 AnswerDto.builder()
                                                         .id(answer.getId())
                                                         .value(answer.getValue())
+                                                        .isInput(answer.getIsInput())
+                                                        .inputValue(answer.getInputValue())
                                                         .questionId(answer.getQuestion().getId())
                                                         .subAnswerDtoList(
                                                                 subAnswerRepository.findByAnswerId(answer.getId())
@@ -59,6 +61,8 @@ public class QuizMapper {
                                                                                 SubAnswerDto.builder()
                                                                                         .id(subAnswer.getId())
                                                                                         .parentAnswer(answer.getId())
+                                                                                        .inputValue(subAnswer.getInputValue())
+                                                                                        .isInput(subAnswer.getIsInput())
                                                                                         .value(subAnswer.getValue())
                                                                                         .build()
                                                                         ).collect(Collectors.toList())
