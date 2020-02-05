@@ -27,7 +27,8 @@ public class AnswerDto {
                      String inputValue,
                      Long questionId,
                      Boolean isSub,
-                     List<SubAnswerDto> subAnswerDtoList
+                     List<SubAnswerDto> subAnswerDtoList,
+                     Boolean isEnableInput
     ) {
         this.id = id;
         this.value = value;
@@ -36,6 +37,7 @@ public class AnswerDto {
         this.isInput = isInput;
         this.questionId = questionId;
         this.subAnswerDtoList = subAnswerDtoList;
+        this.isEnableInput = isEnableInput;
     }
 
 }
