@@ -13,14 +13,14 @@ public class SubAnswerDto {
 
     private Long id;
     private String value;
-    private String inputValue;
     private Boolean isInput;
+    private String inputValue;
     private Long parentAnswer;
 
     public SubAnswerDto(Long id,
+                        String value,
                         Boolean isInput,
                         String inputValue,
-                        String value,
                         Long parentAnswer) {
         this.id = id;
         this.isInput = isInput;
