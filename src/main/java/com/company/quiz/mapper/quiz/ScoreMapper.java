@@ -34,6 +34,7 @@ public class ScoreMapper {
         Question question = null;
         Answer answer = null;
         SubAnswer subAnswer = null;
+
         if (scoreDto.getQuestionId() != null)
             question = questionRepository.findById(scoreDto.getQuestionId()).get();
         if (scoreDto.getAnswerId() != null)
