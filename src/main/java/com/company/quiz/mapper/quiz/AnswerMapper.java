@@ -25,6 +25,8 @@ public class AnswerMapper {
 
         answer.setIsSub(answerDto.getIsSub());
         answer.setValue(answerDto.getValue());
+        answer.setIsInput(answerDto.getIsInput());
+        answer.setInputValue(answerDto.getInputValue());
         answer.setQuestion(question);
         answer.setCreateBy(userSession.getUser().getUsername());
         return answer;
@@ -34,8 +36,10 @@ public class AnswerMapper {
         AnswerDto answerDto = AnswerDto.builder()
                 .id(answer.getId())
                 .isSub(answer.getIsSub())
+                .isInput(answer.getIsInput())
                 .questionId(answer.getQuestion().getId())
                 .value(answer.getValue())
+                .inputValue(answer.getInputValue())
                 .build();
         return answerDto;
     }

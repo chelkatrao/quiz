@@ -19,4 +19,10 @@ public class SubAnswer extends BaseEntity {
     @JoinColumn(name = "answer_id")
     private Answer answer;
 
+    @Column(name = "input_value")
+    private String inputValue;
+
+    @Column(name = "is_input")
+    private Boolean isInput;
+
 }

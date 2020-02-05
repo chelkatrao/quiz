@@ -25,7 +25,9 @@ public class SubAnswerMapper {
 
         subAnswer.setId(subAnswerDto.getId());
         subAnswer.setAnswer(parentAnswer);
+        subAnswer.setIsInput(subAnswerDto.getIsInput());
         subAnswer.setCreateBy(userSession.getUser().getUsername());
+        subAnswer.setInputValue(subAnswerDto.getInputValue());
         subAnswer.setValue(subAnswerDto.getValue());
         return subAnswer;
     }
@@ -34,6 +36,8 @@ public class SubAnswerMapper {
         return SubAnswerDto.builder()
                 .id(subAnswer.getId())
                 .value(subAnswer.getValue())
+                .isInput(subAnswer.getIsInput())
+                .inputValue(subAnswer.getInputValue())
                 .parentAnswer(subAnswer.getAnswer().getId())
                 .build();
     }

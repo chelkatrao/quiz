@@ -2,14 +2,11 @@ package com.company.quiz.controller.quiz;
 
 import com.company.quiz.dto.quiz.QuestionDto;
 import com.company.quiz.service.quiz.QuestionService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("quiz/question")
 public class QuestionController {

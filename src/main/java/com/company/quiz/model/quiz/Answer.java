@@ -22,4 +22,10 @@ public class Answer extends BaseEntity {
     @Column(name = "is_sub")
     private Boolean isSub;
 
+    @Column(name = "input_value")
+    private String inputValue;
+
+    @Column(name = "is_input")
+    private Boolean isInput;
+
 }
