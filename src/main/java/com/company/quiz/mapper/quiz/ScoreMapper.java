@@ -29,7 +29,7 @@ public class ScoreMapper {
         this.subAnswerRepository = subAnswerRepository;
     }
 
-    public Score toScore(ScoreDto scoreDto) {
+    public Score toScore(ScoreDto scoreDto, Long subAnswerId) {
         Score score = new Score();
         Question question = null;
         Answer answer = null;
@@ -37,17 +37,20 @@ public class ScoreMapper {
 
         if (scoreDto.getQuestionId() != null)
             question = questionRepository.findById(scoreDto.getQuestionId()).get();
+
         if (scoreDto.getAnswerId() != null)
             answer = answerRepository.findById(scoreDto.getAnswerId()).get();
+
         if (scoreDto.getSubAnswerId() != null)
-            subAnswer = subAnswerRepository.findById(scoreDto.getSubAnswerId()).get();
+            subAnswer = subAnswerRepository.findById(subAnswerId).get();
 
         score.setUser(userSession.getUser());
         score.setQuestion(question);
         score.setAnswer(answer);
         score.setSubAnswer(subAnswer);
+        score.setAnswerInputValue(scoreDto.getAnswerInputValue());
+        score.setSubAnswerInputValue(scoreDto.getSubAnswerInputValue());
         score.setCreateBy(userSession.getUser().getUsername());
         return score;
     }
-
 }

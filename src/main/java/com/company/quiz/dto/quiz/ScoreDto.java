@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -17,17 +19,23 @@ public class ScoreDto {
     private Long userId;
     private Long questionId;
     private Long answerId;
-    private Long subAnswerId;
+    private List<Long> subAnswerId;
+    private String answerInputValue;
+    private String subAnswerInputValue;
 
     public ScoreDto(Long id,
                     Long userId,
                     Long questionId,
                     Long answerId,
-                    Long subAnswerId) {
+                    List<Long> subAnswerId,
+                    String answerInputValue,
+                    String subAnswerInputValue) {
         this.id = id;
         this.userId = userId;
         this.questionId = questionId;
         this.answerId = answerId;
         this.subAnswerId = subAnswerId;
+        this.answerInputValue = answerInputValue;
+        this.subAnswerInputValue = subAnswerInputValue;
     }
 }

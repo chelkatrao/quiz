@@ -5,9 +5,11 @@ import com.company.quiz.mapper.quiz.ScoreMapper;
 import com.company.quiz.model.quiz.Score;
 import com.company.quiz.repository.quiz.ScoreRepository;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,9 +26,16 @@ public class ScoreService {
         this.scoreMapper = scoreMapper;
     }
 
+    @CacheEvict
+    @Transactional
     public ResponseEntity<?> scoring(List<ScoreDto> scoreDtoList) {
         scoreDtoList.forEach(scoreDto -> {
-            scoreRepository.save(scoreMapper.toScore(scoreDto));
+            scoreDto.getSubAnswerId().forEach(subAnswerId ->
+                scoreRepository.save(scoreMapper.toScore(scoreDto, subAnswerId))
+            );
+            if (scoreDto.getSubAnswerId() == null) {
+                scoreRepository.save(scoreMapper.toScore(scoreDto, 0l));
+            }
         });
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
