@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "answer")
 public class Answer extends BaseEntity {
 
-    @Column(name = "value")
+    @Column(name = "value",length = 1000)
     private String value;
 
     @OneToOne
