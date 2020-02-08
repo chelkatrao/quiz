@@ -30,11 +30,12 @@ public class ScoreService {
     @Transactional
     public ResponseEntity<?> scoring(List<ScoreDto> scoreDtoList) {
         scoreDtoList.forEach(scoreDto -> {
-            scoreDto.getSubAnswerId().forEach(subAnswerId ->
-                scoreRepository.save(scoreMapper.toScore(scoreDto, subAnswerId))
-            );
             if (scoreDto.getSubAnswerId() == null) {
                 scoreRepository.save(scoreMapper.toScore(scoreDto, 0l));
+            } else {
+                scoreDto.getSubAnswerId().forEach(subAnswerId ->
+                        scoreRepository.save(scoreMapper.toScore(scoreDto, subAnswerId))
+                );
             }
         });
         return new ResponseEntity<>("success", HttpStatus.OK);
