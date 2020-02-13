@@ -35,8 +35,8 @@ public class ReportService {
     @Cacheable(key = "#root.method")
     public Map reportPercentage() {
         List<Question> allQuestion = questionRepository.findAll();
-        Map resultList = new HashMap();
-
+        Map resultList = new TreeMap();
+        final Integer[] chartCounter = {1};
         allQuestion.forEach(question -> {
             Query query = entityManager.createNativeQuery(SLQ);
             query.setParameter("questionId", question.getId());
@@ -48,6 +48,9 @@ public class ReportService {
                 counter[0] += Long.parseLong(o[2].toString());
             });
             List l = new ArrayList();
+            HashMap questionValMap = new HashMap<String, String>();
+            questionValMap.put("questionValue", question.getValue());
+            l.add(questionValMap);
             list.forEach(objects -> {
                 Map map = new HashMap();
                 Long questionId = Long.parseLong(objects[0].toString());
@@ -59,18 +62,12 @@ public class ReportService {
                     fullCount = 1f;
                 }
 
-//                map.put("questionId", questionId);
-//                map.put("questionValue", questionRepository.findById(questionId).get().getValue());
-//                map.put("answerid", answerid);
-//                map.put("answerValue", answerRepository.findById(answerid).get().getValue());
-//                map.put("count", Float.valueOf(count));
-
                 map.put("value", (Float.valueOf(count) / fullCount) * 100);
                 map.put("name", answerRepository.findById(answerid).get().getValue());
                 l.add(map);
             });
-
-            resultList.put(question.getId(), l);
+            resultList.put("chart" + chartCounter[0].toString(), l);
+            chartCounter[0]++;
         });
         return resultList;
     }
