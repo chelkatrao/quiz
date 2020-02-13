@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/reports")
@@ -20,7 +20,7 @@ public class ReportController {
 
     @PostMapping
     @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_READ','SUPER_ADMIN_WRITE')")
-    public List reportPercentage() {
+    public Map reportPercentage() {
         return reportService.reportPercentage();
     }
 }

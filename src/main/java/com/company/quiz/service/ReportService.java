@@ -33,22 +33,21 @@ public class ReportService {
     }
 
     @Cacheable(key = "#root.method")
-    public List reportPercentage() {
+    public Map reportPercentage() {
         List<Question> allQuestion = questionRepository.findAll();
-        List resultList = new ArrayList();
+        Map resultList = new HashMap();
 
         allQuestion.forEach(question -> {
             Query query = entityManager.createNativeQuery(SLQ);
             query.setParameter("questionId", question.getId());
 
             List<Object[]> list = query.getResultList();
-            List<Map> listMap = new ArrayList<>();
             final Long[] counter = {0l};
 
             list.forEach(o -> {
                 counter[0] += Long.parseLong(o[2].toString());
             });
-
+            List l = new ArrayList();
             list.forEach(objects -> {
                 Map map = new HashMap();
                 Long questionId = Long.parseLong(objects[0].toString());
@@ -60,16 +59,18 @@ public class ReportService {
                     fullCount = 1f;
                 }
 
-                map.put("questionId", questionId);
-                map.put("questionValue", questionRepository.findById(questionId).get().getValue());
-                map.put("answerid", answerid);
-                map.put("answerValue", answerRepository.findById(answerid).get().getValue());
-                map.put("count", Float.valueOf(count));
-                map.put("precentage", (Float.valueOf(count) / fullCount) * 100);
-                listMap.add(map);
+//                map.put("questionId", questionId);
+//                map.put("questionValue", questionRepository.findById(questionId).get().getValue());
+//                map.put("answerid", answerid);
+//                map.put("answerValue", answerRepository.findById(answerid).get().getValue());
+//                map.put("count", Float.valueOf(count));
+
+                map.put("value", (Float.valueOf(count) / fullCount) * 100);
+                map.put("name", answerRepository.findById(answerid).get().getValue());
+                l.add(map);
             });
 
-            resultList.add(listMap);
+            resultList.put(question.getId(), l);
         });
         return resultList;
     }
