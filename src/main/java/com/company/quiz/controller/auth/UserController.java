@@ -2,7 +2,9 @@ package com.company.quiz.controller.auth;
 
 import com.company.quiz.dto.auth.UserCreateDto;
 import com.company.quiz.dto.auth.UserDto;
+import com.company.quiz.service.auth.RoleService;
 import com.company.quiz.service.auth.UserService;
+import com.google.common.collect.Sets;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,7 @@ import java.util.List;
 public class UserController {
 
     private UserService userService;
+    private RoleService roleService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -30,9 +33,9 @@ public class UserController {
         return userService.getUserList();
     }
 
-//    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_WRITE')")
     @PostMapping("/new")
     public String createUser(@RequestBody UserCreateDto userCreateDto) throws Exception {
+        userCreateDto.setRoleIds(Sets.newHashSet(roleService.getRoleByName("USER_ROLE").getId()));
         userService.createUser(userCreateDto);
         return "success";
     }

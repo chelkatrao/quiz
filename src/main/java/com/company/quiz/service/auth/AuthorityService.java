@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,7 @@ public class AuthorityService {
     //TODO: permissionlar bazada bor bo'lsa yozmaydigan qilish kerak
     public void createPermission() {
         Permission permission = permissionRepository.findByPermissionName(UserPermissionEnum.SUPER_ADMIN_READ.name());
-        if (permission==null) {
+        if (permission == null) {
             UserPermissionEnum[] permissionEnums = UserPermissionEnum.values();
             for (UserPermissionEnum permisison : permissionEnums) {
                 Permission newPermission = new Permission();
@@ -59,6 +60,20 @@ public class AuthorityService {
             role.setRoleInfo("super admin role");
             role.setPermissions(Sets.newHashSet(permissionRepository.findAll()));
             role.setCreateBy("system");
+            roleRepository.save(role);
+        }
+    }
+
+    @Transactional
+    public void createUserRole() {
+        Role isRoleExist = roleRepository.findByRoleName("USER_ROLE");
+        if (isRoleExist == null) {
+            Role role = new Role();
+            role.setRoleName("USER_ROLE");
+            role.setRoleInfo("user role");
+            List<Permission> userPermission = permissionRepository.findAll().stream().filter(permission -> permission.getPermissionName().startsWith("USER")).collect(Collectors.toList());
+            role.setPermissions(Sets.newHashSet(userPermission));
+            role.setCreateBy("user");
             roleRepository.save(role);
         }
     }

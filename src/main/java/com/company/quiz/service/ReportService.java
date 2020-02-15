@@ -33,42 +33,36 @@ public class ReportService {
     }
 
     @Cacheable(key = "#root.method")
-    public Map reportPercentage() {
-        List<Question> allQuestion = questionRepository.findAll();
-        Map resultList = new TreeMap();
-        final Integer[] chartCounter = {1};
-        allQuestion.forEach(question -> {
-            Query query = entityManager.createNativeQuery(SLQ);
-            query.setParameter("questionId", question.getId());
+    public Map reportPercentage(Long questionId) {
+        Question question = questionRepository.findById(questionId).get();
+        Map resultMap = new TreeMap();
+        Query query = entityManager.createNativeQuery(SLQ);
+        query.setParameter("questionId", question.getId());
 
-            List<Object[]> list = query.getResultList();
-            final Long[] counter = {0l};
+        List<Object[]> list = query.getResultList();
+        final Long[] counter = {0l};
 
-            list.forEach(o -> {
-                counter[0] += Long.parseLong(o[2].toString());
-            });
-            List l = new ArrayList();
-            HashMap questionValMap = new HashMap<String, String>();
-            questionValMap.put("questionValue", question.getValue());
-            l.add(questionValMap);
-            list.forEach(objects -> {
-                Map map = new HashMap();
-                Long questionId = Long.parseLong(objects[0].toString());
-                Long answerid = Long.parseLong(objects[1].toString());
-                Long count = Long.parseLong(objects[2].toString());
-
-                Float fullCount = Float.valueOf(counter[0]);
-                if (fullCount.equals(0f)) {
-                    fullCount = 1f;
-                }
-
-                map.put("value", (Float.valueOf(count) / fullCount) * 100);
-                map.put("name", answerRepository.findById(answerid).get().getValue());
-                l.add(map);
-            });
-            resultList.put("chart" + chartCounter[0].toString(), l);
-            chartCounter[0]++;
+        list.forEach(o -> {
+            counter[0] += Long.parseLong(o[2].toString());
         });
-        return resultList;
+        List l = new ArrayList();
+        list.forEach(objects -> {
+            Map map = new HashMap();
+            Long answerid = Long.parseLong(objects[1].toString());
+            Long count = Long.parseLong(objects[2].toString());
+
+            Float fullCount = Float.valueOf(counter[0]);
+            if (fullCount.equals(0f)) {
+                fullCount = 1f;
+            }
+
+            map.put("value", (Float.valueOf(count) / fullCount) * 100);
+            map.put("name", answerRepository.findById(answerid).get().getValue());
+            l.add(map);
+        });
+        resultMap.put("questionid", question.getId());
+        resultMap.put("questionName", question.getValue());
+        resultMap.put("answers", l);
+        return resultMap;
     }
 }

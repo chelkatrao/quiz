@@ -12,7 +12,8 @@ public class QuizApplication {
         // TODO: Service larni cachelab chiqish kerak ! :(
         ConfigurableApplicationContext applicationContext = SpringApplication.run(QuizApplication.class, args);
         applicationContext.getBean(AuthorityService.class).createPermission();// create permission
-        applicationContext.getBean(AuthorityService.class).createRole();// create role
+        applicationContext.getBean(AuthorityService.class).createRole();// create admin role
+        applicationContext.getBean(AuthorityService.class).createUserRole();// create user role
         applicationContext.getBean(AuthorityService.class).createUser();// create user
     }
 

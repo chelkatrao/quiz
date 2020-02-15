@@ -82,4 +82,10 @@ public class RoleService {
             throw new Exception("User not updated something want wrong!!!");
         }
     }
+
+    @Cacheable(key = "#root.methodName")
+    public RoleCreateDto getRoleByName(String roleName) {
+        return roleMapper.toCreateDto(roleRepository.findByRoleName(roleName));
+    }
+
 }

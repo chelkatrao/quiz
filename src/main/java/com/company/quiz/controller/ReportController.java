@@ -2,6 +2,7 @@ package com.company.quiz.controller;
 
 import com.company.quiz.service.ReportService;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,9 +19,9 @@ public class ReportController {
         this.reportService = reportService;
     }
 
-    @PostMapping
+    @PostMapping("/{questionId}")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_READ','SUPER_ADMIN_WRITE')")
-    public Map reportPercentage() {
-        return reportService.reportPercentage();
+    public Map reportPercentage(@PathVariable Long questionId) {
+        return reportService.reportPercentage(questionId);
     }
 }
