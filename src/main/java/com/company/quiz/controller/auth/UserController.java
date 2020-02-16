@@ -17,8 +17,10 @@ public class UserController {
     private UserService userService;
     private RoleService roleService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService,
+                          RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping("/list-full")

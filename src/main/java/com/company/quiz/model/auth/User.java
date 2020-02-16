@@ -35,14 +35,14 @@ public class User extends BaseEntity {
     private String fullName;
 
     @NotNull
-    @Column(name = "phone", length = 12, nullable = false)
+    @Column(name = "phone", length = 13, nullable = false)
     private String phone;
 
     @Email
-    @Column(name = "email")
+    @Column(name = "email", length = 100)
     private String email;
 
-    @Column(name = "path_of_company")
+    @Column(name = "path_of_company", length = 100)
     private String pathOfCompany;
 
     @Column(name = "innovation_part_per")
@@ -60,13 +60,13 @@ public class User extends BaseEntity {
     )
     private Set<Role> roles;
 
-    @Column(name = "annual_activities",length = 100)
+    @Column(name = "annual_activities", length = 100)
     private String annualActivitiesEnum;
 
-    @Column(name = "holders_of_academic_degree",length = 100)
+    @Column(name = "holders_of_academic_degree", length = 100)
     private String holdersOfAcademicDegreeEnum;
 
-    @Column(name = "information_enum",length = 100)
+    @Column(name = "information_enum", length = 100)
     private String informationEnum;
 
     @Column(name = "national_information", length = 100)
@@ -75,13 +75,13 @@ public class User extends BaseEntity {
     @Column(name = "number_of_workers", length = 100)
     private String numberOfWorkersEnum;
 
-    @Column(name = "position",length = 100)
+    @Column(name = "position", length = 100)
     private String positionEnum;
 
-    @Column(name = "sex",length = 100)
+    @Column(name = "sex", length = 100)
     private String sexEnum;
 
-    @Column(name = "type_of_activity",length = 100)
+    @Column(name = "type_of_activity", length = 100)
     private String typeOfActivityEnum;
 
 }
