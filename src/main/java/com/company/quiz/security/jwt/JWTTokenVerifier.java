@@ -33,42 +33,42 @@ public class JWTTokenVerifier extends OncePerRequestFilter {
 
         if (Strings.isNullOrEmpty(authorizationHeader)) {
             filterChain.doFilter(request, response);
-            if(request.getRequestURI().equals("/api/auth/user/new")){
+            if (request.getRequestURI().equals("/api/auth/user/new")) {
                 filterChain.doFilter(request, response);
             }
-            return;
+        } else {
+
+            String token = authorizationHeader.replace("Bearer ", "");
+
+            try {
+
+                String secretKey = "securesecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecure";
+
+                Jws<Claims> claimsJws = Jwts.parser()
+                        .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))
+                        .parseClaimsJws(token);
+
+                Claims body = claimsJws.getBody();
+                String username = body.getSubject();
+                List<Map<String, String>> authorities = (List<Map<String, String>>) body.get("authorities");
+                Set<SimpleGrantedAuthority> simpleGrantedAuthority = authorities.stream()
+                        .map(m -> new SimpleGrantedAuthority(m.get("authority")))
+                        .collect(Collectors.toSet());
+
+                Authentication authentication = new UsernamePasswordAuthenticationToken(
+                        username,
+                        null,
+                        simpleGrantedAuthority
+                );
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            } catch (JwtException e) {
+                throw new IllegalStateException(String.format("Token %s cannot be trusted", token));
+            }
+
+            filterChain.doFilter(request, response);
         }
-
-        String token = authorizationHeader.replace("Bearer ", "");
-
-        try {
-
-            String secretKey = "securesecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecure";
-
-            Jws<Claims> claimsJws = Jwts.parser()
-                    .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))
-                    .parseClaimsJws(token);
-
-            Claims body = claimsJws.getBody();
-            String username = body.getSubject();
-            List<Map<String, String>> authorities = (List<Map<String, String>>) body.get("authorities");
-            Set<SimpleGrantedAuthority> simpleGrantedAuthority = authorities.stream()
-                    .map(m -> new SimpleGrantedAuthority(m.get("authority")))
-                    .collect(Collectors.toSet());
-
-            Authentication authentication = new UsernamePasswordAuthenticationToken(
-                    username,
-                    null,
-                    simpleGrantedAuthority
-            );
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        } catch (JwtException e) {
-            throw new IllegalStateException(String.format("Token %s cannot be trusted", token));
-        }
-
-        filterChain.doFilter(request, response);
     }
 
 }
