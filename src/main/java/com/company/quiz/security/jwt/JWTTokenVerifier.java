@@ -32,7 +32,6 @@ public class JWTTokenVerifier extends OncePerRequestFilter {
         String authorizationHeader = request.getHeader("Authorization");
 
         if (Strings.isNullOrEmpty(authorizationHeader)) {
-            filterChain.doFilter(request, response);
             if (request.getRequestURI().equals("/api/auth/user/new")) {
                 filterChain.doFilter(request, response);
             }

@@ -42,15 +42,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .cors().and()
                 .csrf().disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .addFilter(getJWTAuthenticationFilter())
-                .addFilterAfter(new JWTTokenVerifier(),
-                        JWTUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers(
-                        "/swagger-ui.html",
+                .antMatchers("/auth/user/new", "/swagger-ui.html",
                         "/v2/api-docs",
                         "/webjars/**",
                         "/swagger-resources/**",
@@ -59,11 +52,16 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/favicon.ico",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js"
-                )
-                .permitAll()
-                .anyRequest()
-                .authenticated();
+                        "/**/*.js")
+
+                .permitAll().anyRequest().authenticated()
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilter(getJWTAuthenticationFilter())
+                .addFilterAfter(new JWTTokenVerifier(),
+                        JWTUsernameAndPasswordAuthenticationFilter.class);
     }
 
     @Bean
