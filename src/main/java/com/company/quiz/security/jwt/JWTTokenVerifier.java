@@ -34,7 +34,9 @@ public class JWTTokenVerifier extends OncePerRequestFilter {
         if (Strings.isNullOrEmpty(authorizationHeader)) {
             if (request.getRequestURI().equals("/api/auth/user/new")) {
                 filterChain.doFilter(request, response);
+                return;
             }
+            throw new IllegalStateException(String.format("403 error"));
         } else {
 
             String token = authorizationHeader.replace("Bearer ", "");
