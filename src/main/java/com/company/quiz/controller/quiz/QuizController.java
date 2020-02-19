@@ -17,7 +17,7 @@ public class QuizController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_READ')")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_READ','USER_ROLE')")
     public ResponseQuziDate getListQuiz(@RequestBody Pagination pagination) {
         return quizService.getListQuiz(pagination);
     }

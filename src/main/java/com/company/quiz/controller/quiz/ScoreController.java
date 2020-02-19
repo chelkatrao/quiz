@@ -22,7 +22,7 @@ public class ScoreController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_WRITE')")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_WRITE','USER_ROLE')")
     public ResponseEntity<?> scoring(@RequestBody List<ScoreDto> listScoreDto) {
         return scoreService.scoring(listScoreDto);
     }
