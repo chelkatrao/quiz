@@ -4,6 +4,8 @@ import com.company.quiz.enums.UserPermissionEnum;
 import com.company.quiz.model.auth.Permission;
 import com.company.quiz.model.auth.Role;
 import com.company.quiz.model.auth.User;
+import com.company.quiz.model.quiz.Company;
+import com.company.quiz.repository.auth.CompanyRepository;
 import com.company.quiz.repository.auth.PermissionRepository;
 import com.company.quiz.repository.auth.RoleRepository;
 import com.company.quiz.repository.auth.UserRepository;
@@ -12,7 +14,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -23,14 +24,17 @@ public class AuthorityService {
     private PermissionRepository permissionRepository;
     private RoleRepository roleRepository;
     private UserRepository userRepository;
+    private CompanyRepository companyRepository;
 
 
     public AuthorityService(PermissionRepository permissionRepository,
                             RoleRepository roleRepository,
-                            UserRepository userRepository) {
+                            UserRepository userRepository,
+                            CompanyRepository companyRepository) {
         this.permissionRepository = permissionRepository;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.companyRepository = companyRepository;
     }
 
     //TODO: permissionlar bazada bor bo'lsa yozmaydigan qilish kerak
@@ -48,6 +52,17 @@ public class AuthorityService {
                 newPermission.setCreateBy("system");
                 permissionRepository.save(newPermission);
             }
+        }
+    }
+
+    @Transactional
+    public void createCompany() {
+        Company isCompanyExist = companyRepository.findByCompanyName("system");
+        if (isCompanyExist == null) {
+            Company company = new Company();
+            company.setCompanyName("system");
+            company.setCreateBy("system");
+            companyRepository.save(company);
         }
     }
 
@@ -90,6 +105,7 @@ public class AuthorityService {
             user.setPhone("998999999999");
             user.setFullName("superadmin");
             user.setCreateBy("system");
+            user.setCompany(companyRepository.findByCompanyName("system"));
             userRepository.save(user);
         }
     }

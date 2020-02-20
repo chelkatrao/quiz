@@ -29,10 +29,14 @@ public class Score extends BaseEntity {
     @JoinColumn(name = "sub_answer")
     private SubAnswer subAnswer;
 
-    @Column(name="answer_input_value")
+    @ManyToOne
+    @JoinColumn(name = "company", nullable = false)
+    private Company company;
+
+    @Column(name = "answer_input_value")
     private String answerInputValue;
 
-    @Column(name="sub_answer_input_value")
+    @Column(name = "sub_answer_input_value")
     private String subAnswerInputValue;
 
 }

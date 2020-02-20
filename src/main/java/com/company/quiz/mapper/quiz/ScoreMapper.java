@@ -1,10 +1,12 @@
 package com.company.quiz.mapper.quiz;
 
 import com.company.quiz.dto.quiz.ScoreDto;
+import com.company.quiz.model.auth.User;
 import com.company.quiz.model.quiz.Answer;
 import com.company.quiz.model.quiz.Question;
 import com.company.quiz.model.quiz.Score;
 import com.company.quiz.model.quiz.SubAnswer;
+import com.company.quiz.repository.auth.CompanyRepository;
 import com.company.quiz.repository.quiz.AnswerRepository;
 import com.company.quiz.repository.quiz.QuestionRepository;
 import com.company.quiz.repository.quiz.SubAnswerRepository;
@@ -31,6 +33,7 @@ public class ScoreMapper {
 
     public Score toScore(ScoreDto scoreDto, Long subAnswerId) {
         Score score = new Score();
+        User currentUser = userSession.getUser();
         Question question = null;
         Answer answer = null;
         SubAnswer subAnswer = null;
@@ -50,7 +53,8 @@ public class ScoreMapper {
         score.setSubAnswer(subAnswer);
         score.setAnswerInputValue(scoreDto.getAnswerInputValue());
         score.setSubAnswerInputValue(scoreDto.getSubAnswerInputValue());
-        score.setCreateBy(userSession.getUser().getUsername());
+        score.setCreateBy(currentUser.getUsername());
+        score.setCompany(currentUser.getCompany());
         return score;
     }
 }

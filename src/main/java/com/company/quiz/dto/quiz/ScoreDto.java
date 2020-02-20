@@ -22,6 +22,7 @@ public class ScoreDto {
     private List<Long> subAnswerId;
     private String answerInputValue;
     private String subAnswerInputValue;
+    private Long companyId;
 
     public ScoreDto(Long id,
                     Long userId,
@@ -29,7 +30,8 @@ public class ScoreDto {
                     Long answerId,
                     List<Long> subAnswerId,
                     String answerInputValue,
-                    String subAnswerInputValue) {
+                    String subAnswerInputValue,
+                    Long companyId) {
         this.id = id;
         this.userId = userId;
         this.questionId = questionId;
@@ -37,5 +39,6 @@ public class ScoreDto {
         this.subAnswerId = subAnswerId;
         this.answerInputValue = answerInputValue;
         this.subAnswerInputValue = subAnswerInputValue;
+        this.companyId = companyId;
     }
 }

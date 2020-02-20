@@ -2,6 +2,7 @@ package com.company.quiz.model.auth;
 
 import com.company.quiz.enums.quiz.*;
 import com.company.quiz.model.BaseEntity;
+import com.company.quiz.model.quiz.Company;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +29,10 @@ public class User extends BaseEntity {
     @Size(min = 1, max = 100)
     @Column(length = 50, nullable = false)
     private String password;
+
+    @ManyToOne
+    @JoinColumn(name = "company", nullable = false)
+    private Company company;
 
     @NotNull
     @Size(min = 1, max = 50)

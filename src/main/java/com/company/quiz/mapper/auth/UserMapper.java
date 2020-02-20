@@ -6,6 +6,7 @@ import com.company.quiz.dto.auth.UserDto;
 import com.company.quiz.enums.quiz.*;
 import com.company.quiz.model.auth.Role;
 import com.company.quiz.model.auth.User;
+import com.company.quiz.repository.auth.CompanyRepository;
 import com.company.quiz.repository.auth.RoleRepository;
 import com.company.quiz.service.UserSession;
 import com.google.common.collect.Sets;
@@ -21,16 +22,17 @@ import java.util.stream.Collectors;
 public class UserMapper {
 
     private PasswordEncoder passwordEncoder;
-
     private RoleRepository roleRepository;
-
+    private CompanyRepository companyRepository;
     private UserSession userSession;
 
     public UserMapper(PasswordEncoder passwordEncoder,
                       RoleRepository roleRepository,
+                      CompanyRepository companyRepository,
                       UserSession userSession) {
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+        this.companyRepository = companyRepository;
         this.userSession = userSession;
     }
 
@@ -52,6 +54,7 @@ public class UserMapper {
         user.setEmail(userCreateDto.getEmail());
         user.setPathOfCompany(userCreateDto.getPathOfCompany());
         user.setInnovationPartPer(userCreateDto.getInnovationPartPer());
+        user.setCompany(companyRepository.findById(userCreateDto.getCompanyId()).get());
 
         if (userCreateDto.getRoleIds() != null) {
             Set<Role> roles = new HashSet<>();
