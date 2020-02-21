@@ -36,6 +36,10 @@ public class JWTTokenVerifier extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
                 return;
             }
+            if (request.getRequestURI().equals("/api/quiz/company/list")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
             throw new IllegalStateException(String.format("403 error"));
         } else {
 

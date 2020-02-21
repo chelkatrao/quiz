@@ -25,7 +25,6 @@ public class CompanyController {
     }
 
     @PostMapping("/list")
-    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_READ')")
     public List<CompanyDto> listCompany() {
         return companyService.listCompany();
     }
