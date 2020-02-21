@@ -62,6 +62,7 @@ public class AuthorityService {
             Company company = new Company();
             company.setCompanyName("system");
             company.setCreateBy("system");
+            company.setCode("00001");
             companyRepository.save(company);
         }
     }
