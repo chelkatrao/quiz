@@ -56,7 +56,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/favicon.ico",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js")
+                        "/**/*.js"
+                )
 
                 .permitAll().anyRequest().authenticated()
                 .and()

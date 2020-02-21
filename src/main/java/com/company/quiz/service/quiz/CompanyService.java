@@ -55,4 +55,8 @@ public class CompanyService {
     public Boolean findByCode(String companyCode) {
         return companyRepository.findByCode(companyCode) != null;
     }
+
+    public Boolean findByCompanyId(Long companyId, String companyCode) {
+        return companyRepository.findById(companyId).get().getCode().equals(companyCode);
+    }
 }
