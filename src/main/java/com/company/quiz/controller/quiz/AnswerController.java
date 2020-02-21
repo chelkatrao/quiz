@@ -35,10 +35,6 @@ public class AnswerController {
     @GetMapping("/list/{questionId}")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_READ')")
     public List<AnswerDto> listAnswerByQuestionId(@PathVariable("questionId") Long questionId) {
-
-        List<List<SubAnswerDto>> list = answerService.listAnswerByQuestionId(questionId).stream()
-                .map(x-> x.getSubAnswerDtoList()).collect(Collectors.toList());
-
         return answerService.listAnswerByQuestionId(questionId);
     }
 

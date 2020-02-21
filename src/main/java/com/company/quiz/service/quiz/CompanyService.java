@@ -51,4 +51,8 @@ public class CompanyService {
         return new ResponseEntity<>(companyMapper.toCompanyDto(company), HttpStatus.OK);
     }
 
+    @CacheEvict
+    public Boolean findByCode(String companyCode) {
+        return companyRepository.findByCode(companyCode) != null;
+    }
 }
