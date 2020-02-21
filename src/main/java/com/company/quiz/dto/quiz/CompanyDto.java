@@ -10,12 +10,16 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 public class CompanyDto {
+
     private Long id;
     private String companyName;
+    private String code;
 
     public CompanyDto(Long id,
-                      String companyName) {
+                      String companyName,
+                      String code) {
         this.id = id;
         this.companyName = companyName;
+        this.code = code;
     }
 }

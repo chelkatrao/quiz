@@ -21,4 +21,8 @@ public class Company extends BaseEntity {
     @Column(name ="companyName",length = 50, unique = true, nullable = false)
     private String companyName;
 
+    @NotNull
+    @Column(name ="code",length = 5, unique = true, nullable = false)
+    private String code;
+
 }

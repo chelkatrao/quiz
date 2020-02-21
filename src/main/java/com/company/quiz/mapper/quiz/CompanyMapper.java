@@ -21,6 +21,7 @@ public class CompanyMapper {
         Company company = new Company();
         company.setId(companyDto.getId());
         company.setCompanyName(companyDto.getCompanyName());
+        company.setCode(companyDto.getCode());
         company.setCreateBy(userSession.getUser().getUsername());
         return company;
     }
@@ -29,6 +30,7 @@ public class CompanyMapper {
         return CompanyDto.builder()
                 .id(company.getId())
                 .companyName(company.getCompanyName())
+                .code(company.getCode())
                 .build();
     }
 

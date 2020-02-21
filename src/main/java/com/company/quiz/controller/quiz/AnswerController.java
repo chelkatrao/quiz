@@ -1,18 +1,26 @@
 package com.company.quiz.controller.quiz;
 
 import com.company.quiz.dto.quiz.AnswerDto;
+import com.company.quiz.dto.quiz.SubAnswerDto;
 import com.company.quiz.service.quiz.AnswerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("quiz/answer")
 public class AnswerController {
 
     private AnswerService answerService;
+
+//    @PersistenceContext
+//    private EntityManager entityManager;
+//
+//    @Autowired
+//    private EntityManagerFactory entityManagerFactory;
 
     public AnswerController(AnswerService answerService) {
         this.answerService = answerService;
@@ -27,6 +35,10 @@ public class AnswerController {
     @GetMapping("/list/{questionId}")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_READ')")
     public List<AnswerDto> listAnswerByQuestionId(@PathVariable("questionId") Long questionId) {
+
+        List<List<SubAnswerDto>> list = answerService.listAnswerByQuestionId(questionId).stream()
+                .map(x-> x.getSubAnswerDtoList()).collect(Collectors.toList());
+
         return answerService.listAnswerByQuestionId(questionId);
     }
 
