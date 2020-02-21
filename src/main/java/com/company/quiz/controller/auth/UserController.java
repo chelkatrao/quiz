@@ -20,9 +20,11 @@ public class UserController {
     private CompanyService companyService;
 
     public UserController(UserService userService,
-                          RoleService roleService) {
+                          RoleService roleService,
+                          CompanyService companyService) {
         this.userService = userService;
         this.roleService = roleService;
+        this.companyService = companyService;
     }
 
     @GetMapping("/list-full")
