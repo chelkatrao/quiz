@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,4 +26,11 @@ public class ReportController {
     public Map reportPercentage(@PathVariable Long questionId) {
         return reportService.reportPercentage(questionId);
     }
+
+    @PostMapping("/{answerId}")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_READ','SUPER_ADMIN_WRITE')")
+    public List<HashMap> companyByAnswer(@PathVariable Long answerId) {
+        return reportService.companyByAnswer(answerId);
+    }
+
 }
