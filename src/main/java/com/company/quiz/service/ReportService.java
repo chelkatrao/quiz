@@ -32,10 +32,12 @@ public class ReportService {
 
     public ReportService(EntityManagerFactory scoreRepository,
                          QuestionRepository questionRepository,
-                         AnswerRepository answerRepository) {
+                         AnswerRepository answerRepository,
+                         CompanyRepository companyRepository) {
         this.entityManager = scoreRepository.createEntityManager();
         this.questionRepository = questionRepository;
         this.answerRepository = answerRepository;
+        this.companyRepository = companyRepository;
     }
 
     @Cacheable(key = "#root.method")
