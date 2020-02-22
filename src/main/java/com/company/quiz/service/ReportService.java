@@ -6,12 +6,14 @@ import com.company.quiz.repository.auth.CompanyRepository;
 import com.company.quiz.repository.quiz.AnswerRepository;
 import com.company.quiz.repository.quiz.QuestionRepository;
 import com.company.quiz.service.quiz.CompanyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import java.math.BigInteger;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -82,8 +84,8 @@ public class ReportService {
 
         return list.stream().map(x -> {
             HashMap map = new HashMap();
-            map.put("company", companyRepository.findById((Long) x[0]));
-            map.put("count", (Long) x[1]);
+            map.put("company", companyRepository.findById(((BigInteger)  x[0]).longValue()));
+            map.put("count", ((BigInteger) x[1]).longValue());
             return map;
         }).collect(Collectors.toList());
     }
