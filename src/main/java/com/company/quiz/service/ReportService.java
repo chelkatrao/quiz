@@ -61,7 +61,7 @@ public class ReportService {
             if (fullCount.equals(0f)) {
                 fullCount = 1f;
             }
-
+            map.put("answerId", answerid);
             map.put("value", (Float.valueOf(count) / fullCount) * 100);
             map.put("name", answerRepository.findById(answerid).get().getValue());
             l.add(map);
