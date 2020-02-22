@@ -72,6 +72,7 @@ public class ReportService {
         return resultMap;
     }
 
+    @Cacheable(key = "#root.method")
     public List<HashMap> companyByAnswer(Long answerId) {
         Query query = entityManager.createNativeQuery(SQL2);
         query.setParameter("answer", answerId);
