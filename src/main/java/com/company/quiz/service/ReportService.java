@@ -85,7 +85,7 @@ public class ReportService {
         return list.stream().map(x -> {
             HashMap map = new HashMap();
             map.put("company", companyRepository.findById(((BigInteger)  x[0]).longValue()));
-            map.put("count", ((BigInteger) x[1]).longValue());
+            map.put("count", ((BigInteger) x[2]).longValue());
             return map;
         }).collect(Collectors.toList());
     }
