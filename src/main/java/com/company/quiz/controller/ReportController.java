@@ -27,7 +27,7 @@ public class ReportController {
         return reportService.reportPercentage(questionId);
     }
 
-    @PostMapping("company/{answerId}")
+    @PostMapping("/company/{answerId}")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_READ','SUPER_ADMIN_WRITE')")
     public List<HashMap> companyByAnswer(@PathVariable Long answerId) {
         return reportService.companyByAnswer(answerId);
