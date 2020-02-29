@@ -59,10 +59,10 @@ public class JWTUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 Gson gson = new Gson();
                 Map map = new HashMap();
                 map.put("timestamp", LocalDateTime.now());
-                map.put("message", "Access denied");
+                map.put("message", "this user is not exist");
                 gson.toJson(map);
                 response.setContentType("application/json;charset=UTF-8");
-                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 response.getWriter().write(gson.toJson(map));
             }
             return authenticate;

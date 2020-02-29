@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name = "question")
 public class Question extends BaseEntity {
 
-    @Column(name = "value")
+    @Column(name = "value", length = 1000)
     private String value;
 
 }

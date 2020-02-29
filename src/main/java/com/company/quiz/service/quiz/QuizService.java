@@ -16,12 +16,9 @@ import java.util.Map;
 public class QuizService {
 
     private QuizMapper quizMapper;
-    private EntityManagerFactory entityManagerFactory;
 
-    public QuizService(QuizMapper quizMapper,
-                       EntityManagerFactory entityManagerFactory) {
+    public QuizService(QuizMapper quizMapper) {
         this.quizMapper = quizMapper;
-        this.entityManagerFactory = entityManagerFactory;
     }
 
     @Transactional
