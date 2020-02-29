@@ -89,4 +89,7 @@ public class User extends BaseEntity {
     @Column(name = "type_of_activity", length = 100)
     private String typeOfActivityEnum;
 
+    @Column(name = "age")
+    private String age;
+
 }

@@ -62,7 +62,7 @@ public class JWTUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 map.put("message", "this user is not exist");
                 gson.toJson(map);
                 response.setContentType("application/json;charset=UTF-8");
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.getWriter().write(gson.toJson(map));
             }
             return authenticate;

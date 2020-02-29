@@ -32,6 +32,7 @@ public class UserCreateDto {
     private String typeOfActivityEnum;
     private Long   companyId;
     private String companyCode;
+    private String age;
 
     public UserCreateDto(Long id,
                          String username,
@@ -52,7 +53,8 @@ public class UserCreateDto {
                          String pathOfCompany,
                          Double innovationPartPer,
                          Long companyId,
-                         String companyCode
+                         String companyCode,
+                         String age
     ) {
         this.id = id;
         this.username = username;
@@ -74,5 +76,6 @@ public class UserCreateDto {
         this.innovationPartPer = innovationPartPer;
         this.companyId = companyId;
         this.companyCode = companyCode;
+        this.age = age;
     }
 }

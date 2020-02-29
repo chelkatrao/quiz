@@ -128,7 +128,15 @@ public class UserMapper {
                         }
                     }
             );
-            if (i[0] != 8) {
+
+            Sets.newHashSet(AgeEnum.values()).stream().forEach(x -> {
+                        if (x.getValue().equals(userCreateDto.getAge())) {
+                            i[0]++;
+                            user.setAge(x.getValue());
+                        }
+                    }
+            );
+            if (i[0] != 9) {
                 throw new Exception("fields are incorrect!!!");
             }
 
