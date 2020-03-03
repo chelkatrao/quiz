@@ -1,6 +1,7 @@
 package com.company.quiz.model.quiz;
 
 import com.company.quiz.model.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,5 +28,9 @@ public class Answer extends BaseEntity {
 
     @Column(name = "is_input")
     private Boolean isInput;
+
+    @Column(name = "is_deleted",nullable = false)
+    @JsonIgnore
+    private Integer isDeleted = 0;
 
 }

@@ -2,6 +2,7 @@ package com.company.quiz.model.quiz;
 
 import com.company.quiz.model.BaseEntity;
 import com.company.quiz.model.auth.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,5 +39,10 @@ public class Score extends BaseEntity {
 
     @Column(name = "sub_answer_input_value")
     private String subAnswerInputValue;
+
+    @Column(name = "is_deleted",nullable = false)
+    @JsonIgnore
+    private Integer isDeleted = 0;
+
 
 }

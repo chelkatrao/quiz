@@ -60,10 +60,10 @@ public class QuestionService {
             List<SubAnswer> subAnswers = subAnswerRepository.findByAnswerId(answer.getId());
             if (!subAnswers.isEmpty()) {
                 subAnswers.forEach(subAnswer -> {
-                    subAnswerRepository.delete(subAnswer);
+                    subAnswerRepository.deleteById(subAnswer.getId());
                 });
             }
-            answerRepository.delete(answer);
+            answerRepository.deleteById(answer.getId());
         });
         questionRepository.deleteById(id);
         return new ResponseEntity<>("success", HttpStatus.OK);

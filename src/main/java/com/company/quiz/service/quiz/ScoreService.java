@@ -2,7 +2,6 @@ package com.company.quiz.service.quiz;
 
 import com.company.quiz.dto.quiz.ScoreDto;
 import com.company.quiz.mapper.quiz.ScoreMapper;
-import com.company.quiz.model.quiz.Score;
 import com.company.quiz.repository.quiz.ScoreRepository;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
