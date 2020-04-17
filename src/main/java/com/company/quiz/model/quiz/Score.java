@@ -40,7 +40,7 @@ public class Score extends BaseEntity {
     @Column(name = "sub_answer_input_value")
     private String subAnswerInputValue;
 
-    @Column(name = "is_deleted",nullable = false)
+    @Column(name = "is_deleted", nullable = false)
     @JsonIgnore
     private Integer isDeleted = 0;
 

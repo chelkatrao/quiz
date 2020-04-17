@@ -26,7 +26,7 @@ public class SubAnswer extends BaseEntity {
     @Column(name = "is_input")
     private Boolean isInput;
 
-    @Column(name = "is_deleted",nullable = false)
+    @Column(name = "is_deleted", nullable = false)
     @JsonIgnore
     private Integer isDeleted = 0;
 

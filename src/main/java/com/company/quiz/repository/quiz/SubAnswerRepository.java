@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SubAnswerRepository extends JpaRepository<SubAnswer,Long> {
+public interface SubAnswerRepository extends JpaRepository<SubAnswer, Long> {
 
     @Query("select s from SubAnswer s where s.isDeleted=0")
     List<SubAnswer> findByAnswerId(Long answerId);

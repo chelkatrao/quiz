@@ -2,6 +2,7 @@ package com.company.quiz.dto.auth;
 
 import lombok.*;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import java.util.Set;
 
 @Getter

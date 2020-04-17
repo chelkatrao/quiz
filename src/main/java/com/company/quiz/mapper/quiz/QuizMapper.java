@@ -72,6 +72,15 @@ public class QuizMapper {
                                         ).collect(Collectors.toList())
                                 ).build()
                 ).collect(Collectors.toList());
+        long count = questionRepository.count();
+        int index = 0;
+        for (int i = ((pagination.getPage() + 1) - 1) * pagination.getLimit(); i < (pagination.getPage() + 1) * pagination.getLimit(); i++) {
+            if (i >= count) {
+                break;
+            }
+            quizDtos.get(index).setSerialNumber(i + 1);
+            index++;
+        }
 
         return ResponseQuziDate.builder()
                 .data(quizDtos)

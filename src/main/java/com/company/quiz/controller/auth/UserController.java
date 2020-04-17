@@ -41,7 +41,7 @@ public class UserController {
 
     @PostMapping("/new")
     public String createUser(@RequestBody UserCreateDto userCreateDto) throws Exception {
-        Boolean company = companyService.findByCompanyId(userCreateDto.getCompanyId(),userCreateDto.getCompanyCode());
+        Boolean company = companyService.findByCompanyId(userCreateDto.getCompanyId(), userCreateDto.getCompanyCode());
         Boolean isExist = companyService.findByCode(userCreateDto.getCompanyCode());
         if (isExist && company) {
             userCreateDto.setRoleIds(Sets.newHashSet(roleService.getRoleByName("USER_ROLE").getId()));

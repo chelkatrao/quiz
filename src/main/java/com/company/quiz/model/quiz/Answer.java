@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name = "answer")
 public class Answer extends BaseEntity {
 
-    @Column(name = "value",length = 1000)
+    @Column(name = "value", length = 1000)
     private String value;
 
     @OneToOne
@@ -29,7 +29,7 @@ public class Answer extends BaseEntity {
     @Column(name = "is_input")
     private Boolean isInput;
 
-    @Column(name = "is_deleted",nullable = false)
+    @Column(name = "is_deleted", nullable = false)
     @JsonIgnore
     private Integer isDeleted = 0;
 

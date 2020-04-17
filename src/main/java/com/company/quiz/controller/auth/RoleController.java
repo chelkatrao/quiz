@@ -46,7 +46,7 @@ public class RoleController {
     @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_WRITE')")
     public RoleCreateDto updateUser(@RequestBody RoleCreateDto roleCreateDto,
                                     @PathVariable("id") Long id) throws Throwable {
-        return roleService.updateRole(roleCreateDto,id);
+        return roleService.updateRole(roleCreateDto, id);
     }
 
 }

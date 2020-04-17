@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Long> {
 
@@ -18,5 +20,10 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
     @Override
     @Query("update Company c set c.isDeleted = 1 where c.id = :companyId")
     void deleteById(@Param("companyId") Long id);
+
+    @Modifying // o'zgartirish
+    @Override
+    @Query("select c from Company c where c.isDeleted = 0")
+    List<Company> findAll();
 
 }

@@ -19,14 +19,14 @@ public class Company extends BaseEntity {
 
     @NotNull
     @Size(min = 1, max = 200)
-    @Column(name ="companyName",length = 50, unique = true, nullable = false)
+    @Column(name = "companyName", length = 50, unique = true, nullable = false)
     private String companyName;
 
     @NotNull
-    @Column(name ="code",length = 5, unique = true, nullable = false)
+    @Column(name = "code", length = 5, unique = true, nullable = false)
     private String code;
 
-    @Column(name = "is_deleted",nullable = false)
+    @Column(name = "is_deleted", nullable = false)
     @JsonIgnore
     private Integer isDeleted = 0;
 

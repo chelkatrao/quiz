@@ -30,7 +30,7 @@ public class UserCreateDto {
     private String positionEnum;
     private String sexEnum;
     private String typeOfActivityEnum;
-    private Long   companyId;
+    private Long companyId;
     private String companyCode;
     private String age;
 

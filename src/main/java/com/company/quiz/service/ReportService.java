@@ -1,8 +1,10 @@
 package com.company.quiz.service;
 
+import com.company.quiz.model.auth.User;
 import com.company.quiz.model.quiz.Answer;
 import com.company.quiz.model.quiz.Question;
 import com.company.quiz.repository.auth.CompanyRepository;
+import com.company.quiz.repository.auth.RoleRepository;
 import com.company.quiz.repository.quiz.AnswerRepository;
 import com.company.quiz.repository.quiz.QuestionRepository;
 import com.company.quiz.service.quiz.CompanyService;
@@ -15,6 +17,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import java.math.BigInteger;
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,15 +34,21 @@ public class ReportService {
     private QuestionRepository questionRepository;
     private AnswerRepository answerRepository;
     private CompanyRepository companyRepository;
+    private RoleRepository roleRepository;
+    private UserSession userSession;
 
     public ReportService(EntityManagerFactory scoreRepository,
                          QuestionRepository questionRepository,
                          AnswerRepository answerRepository,
-                         CompanyRepository companyRepository) {
+                         CompanyRepository companyRepository,
+                         UserSession userSession,
+                         RoleRepository roleRepository) {
         this.entityManager = scoreRepository.createEntityManager();
         this.questionRepository = questionRepository;
         this.answerRepository = answerRepository;
         this.companyRepository = companyRepository;
+        this.userSession = userSession;
+        this.roleRepository = roleRepository;
     }
 
     @Cacheable(key = "#root.method")
@@ -78,15 +87,33 @@ public class ReportService {
 
     @Cacheable(key = "#root.method")
     public List<HashMap> companyByAnswer(Long answerId) {
+        User user = userSession.getUser();
+        boolean isAdmin = false;
+        if (user.getRoles().stream().map(m -> m.getId()).collect(Collectors.toSet()).
+                contains(roleRepository.findByRoleName("SUPER_ADMIN_ROLE").getId())) {
+            isAdmin = true;
+        }
+
         Query query = entityManager.createNativeQuery(SQL2);
         query.setParameter("answer", answerId);
         List<Object[]> list = query.getResultList();
 
-        return list.stream().map(x -> {
-            HashMap map = new HashMap();
-            map.put("company", companyRepository.findById(((BigInteger)  x[0]).longValue()));
-            map.put("count", ((BigInteger) x[2]).longValue());
-            return map;
-        }).collect(Collectors.toList());
+        if (true) {
+            return list.stream().map(x -> {
+                HashMap map = new HashMap();
+                map.put("company", companyRepository.findById(((BigInteger) x[0]).longValue()));
+                map.put("count", ((BigInteger) x[2]).longValue());
+                return map;
+            }).collect(Collectors.toList());
+        } else {
+            List<Object[]> filtered = list.stream().filter(x -> companyRepository.findById(((BigInteger) x[0]).longValue()).equals(user.getCompany())).collect(Collectors.toList());
+            return filtered.stream().map(x -> {
+                HashMap map = new HashMap();
+                map.put("company", companyRepository.findById(((BigInteger) x[0]).longValue()));
+                map.put("count", ((BigInteger) x[2]).longValue());
+                return map;
+            }).collect(Collectors.toList());
+        }
+
     }
 }

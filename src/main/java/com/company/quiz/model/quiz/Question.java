@@ -18,7 +18,7 @@ public class Question extends BaseEntity {
     @Column(name = "value", length = 1000)
     private String value;
 
-    @Column(name = "is_deleted",nullable = false)
+    @Column(name = "is_deleted", nullable = false)
     @JsonIgnore
     private Integer isDeleted = 0;
 

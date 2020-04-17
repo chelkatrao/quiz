@@ -29,4 +29,9 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     @Query("update Question q set q.isDeleted = 1 where q.id = :questionId")
     void deleteById(@Param("questionId") Long id);
 
+    //    @Modifying // o'zgartirish
+    @Override
+    @Query("select count(a) from Question a where a.isDeleted = 0")
+    long count();
+
 }
