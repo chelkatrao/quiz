@@ -54,7 +54,7 @@ public class UserMapper {
         user.setEmail(userCreateDto.getEmail());
         user.setPathOfCompany(userCreateDto.getPathOfCompany());
         user.setInnovationPartPer(userCreateDto.getInnovationPartPer());
-        user.setCompany(companyRepository.findByCode(userCreateDto.getCompanyCode()));
+        user.setCompany(companyRepository.findById(userCreateDto.getCompanyId()).orElseGet(null));
 
         if (userCreateDto.getRoleIds() != null) {
             Set<Role> roles = new HashSet<>();

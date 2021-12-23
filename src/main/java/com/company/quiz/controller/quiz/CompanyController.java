@@ -1,6 +1,7 @@
 package com.company.quiz.controller.quiz;
 
 import com.company.quiz.dto.quiz.CompanyDto;
+import com.company.quiz.mapper.quiz.CompanyMapper;
 import com.company.quiz.service.quiz.CompanyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,15 +14,17 @@ import java.util.List;
 public class CompanyController {
 
     private CompanyService companyService;
+    private CompanyMapper companyMapper;
 
-    public CompanyController(CompanyService companyService) {
+    public CompanyController(CompanyService companyService, CompanyMapper companyMapper) {
         this.companyService = companyService;
+        this.companyMapper = companyMapper;
     }
 
     @PostMapping("/new")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMIN_WRITE')")
     public CompanyDto createCompany(@RequestBody CompanyDto companyDto) {
-        return companyService.createCompany(companyDto);
+        return companyMapper.toCompanyDto(companyService.createCompany(companyDto));
     }
 
     @PostMapping("/list")

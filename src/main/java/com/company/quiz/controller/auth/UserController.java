@@ -2,6 +2,9 @@ package com.company.quiz.controller.auth;
 
 import com.company.quiz.dto.auth.UserCreateDto;
 import com.company.quiz.dto.auth.UserDto;
+import com.company.quiz.dto.quiz.CompanyDto;
+import com.company.quiz.model.quiz.Company;
+import com.company.quiz.repository.auth.CompanyRepository;
 import com.company.quiz.service.auth.RoleService;
 import com.company.quiz.service.auth.UserService;
 import com.company.quiz.service.quiz.CompanyService;
@@ -18,13 +21,16 @@ public class UserController {
     private UserService userService;
     private RoleService roleService;
     private CompanyService companyService;
+    private CompanyRepository companyRepository;
 
     public UserController(UserService userService,
                           RoleService roleService,
+                          CompanyRepository companyRepository,
                           CompanyService companyService) {
         this.userService = userService;
         this.roleService = roleService;
         this.companyService = companyService;
+        this.companyRepository = companyRepository;
     }
 
     @GetMapping("/list-full")
@@ -40,16 +46,30 @@ public class UserController {
     }
 
     @PostMapping("/new")
-    public String createUser(@RequestBody UserCreateDto userCreateDto) throws Exception {
-        Boolean company = companyService.findByCompanyId(userCreateDto.getCompanyId(), userCreateDto.getCompanyCode());
-        Boolean isExist = companyService.findByCode(userCreateDto.getCompanyCode());
-        if (isExist && company) {
+    public Object createUser(@RequestBody UserCreateDto userCreateDto) throws Exception {
+//        Boolean company = companyService.findByCompanyId(userCreateDto.getCompanyId(), userCreateDto.getCompanyCode());
+//        Boolean isExist = companyService.findByCode(userCreateDto.getCompanyCode());
+//        if (isExist) {
+
+        try {
             userCreateDto.setRoleIds(Sets.newHashSet(roleService.getRoleByName("USER_ROLE").getId()));
+
+            Company company = companyRepository.findByCompanyName(userCreateDto.getCompanyName());
+            if (company == null) {
+                CompanyDto companyDto = new CompanyDto();
+                companyDto.setCode("00x");
+                companyDto.setCompanyName(userCreateDto.getCompanyName());
+                company = companyService.createCompany(companyDto);
+            }
+            userCreateDto.setCompanyId(company.getId());
             userService.createUser(userCreateDto);
-            return "success";
-        } else {
+            return company.getId();
+        } catch (Exception e) {
             return "error";
         }
+//        } else {
+//            return "error";
+//        }
     }
 
     @GetMapping("/remove/{id}")

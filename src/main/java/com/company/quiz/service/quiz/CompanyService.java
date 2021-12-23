@@ -27,10 +27,8 @@ public class CompanyService {
     }
 
     @CacheEvict
-    public CompanyDto createCompany(CompanyDto companyDto) {
-        return companyMapper.toCompanyDto(
-                companyRepository.save(companyMapper.toCompany(companyDto))
-        );
+    public Company createCompany(CompanyDto companyDto) {
+        return companyRepository.save(companyMapper.toCompany(companyDto));
     }
 
     @Cacheable(key = "#root.method")

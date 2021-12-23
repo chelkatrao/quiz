@@ -15,12 +15,15 @@ public class UserDto {
     private Long id;
     private String username;
     private Set<RoleDto> roles;
+    private Long companyId;
 
     public UserDto(Long id,
                    String username,
-                   Set<RoleDto> roles) {
+                   Set<RoleDto> roles,
+                   Long companyId) {
         this.id = id;
         this.username = username;
         this.roles = roles;
+        this.companyId = companyId;
     }
 }
